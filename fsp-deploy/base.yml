@@ -1,0 +1,11 @@
+---
+
+- name: prerequisites
+  hosts: all
+  gather_facts: False
+  
+  tasks:
+    - name: install libselinux-python
+      yum:
+        name: libselinux-python
+        state: installed

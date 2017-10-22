@@ -1,18 +1,9 @@
 ---
 
-- name: install fsp-sss
-  hosts: redis
-  
-  vars:
-    redis_tar: redis-3.2.6.tar.gz
-    
-  tasks:
-    - name: install libselinux-python
-      yum:
-        name: libselinux-python
-        state: installed
+# install fsp-sss
 
-    - name: uncompress redis
-      unarchive:
-        src: "files/{{ redis_tar }}"
-        dest: "/usr/local/"
+- include: base.yml
+- include: redis.yml
+- include: ice.yml
+- include: icegrid-master.yml
+- include: icegrid-node.yml

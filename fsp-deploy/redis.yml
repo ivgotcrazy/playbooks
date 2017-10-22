@@ -1,0 +1,34 @@
+---
+
+- name: install redis
+  hosts: redis
+  gather_facts: False
+
+  tasks:
+    - name: uncompress redis
+      unarchive:
+        src: "files/redis-3.2.6.tar.gz"
+        dest: "/usr/local/"
+
+    - name: copy redis config
+      copy:
+        src: files/redis.conf
+        dest: /usr/local/redis-3.2.6
+
+    - name: copy sentinel config
+      copy:
+        src: files/sentinel.conf
+        dest: /usr/local/redis-3.2.6
+
+    - name: set REDIS_HOME
+      lineinfile: 
+        path: /etc/profile
+        regexp: 'REDIS_HOME='
+        line: 'REDIS_HOME=/usr/local/redis-3.2.6'
+
+    - name: set PATH
+      lineinfile:
+        path: /etc/profile
+        regexp: 'export PATH=$PATH:$REDIS_HOME'
+        line: 'export PATH=$PATH:$REDIS_HOME'
+       

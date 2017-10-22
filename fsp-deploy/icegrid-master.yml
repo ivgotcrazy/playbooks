@@ -1,0 +1,16 @@
+---
+
+- name: install icegrid-master
+  hosts: icegrid-master
+  gather_facts: False
+
+  tasks:
+    - name: copy master registry config
+      copy:
+        src: "files/icegrid/master"
+        dest: "/opt/icegrid"
+
+    - name: copy registry app file
+      copy:
+        src: "files/icegrid/register_app"
+        dest: "/opt/icegrid"

@@ -1,0 +1,17 @@
+IceGrid.InstanceName=DBIceGrid
+
+IceGrid.Registry.Client.Endpoints=default -t 10000 -p 10000
+IceGrid.Registry.Server.Endpoints=default -t 10000 -p 30001
+IceGrid.Registry.Internal.Endpoints=default -t 10000 -p 30002
+IceGrid.Registry.Data=db/master
+IceGrid.Registry.PermissionsVerifier=DBIceGrid/NullPermissionsVerifier
+IceGrid.Registry.AdminPermissionsVerifier=DBIceGrid/NullPermissionsVerifier
+
+Ice.Override.Timeout=10000
+
+Ice.StdErr=db/master/stderr.txt
+Ice.StdOut=db/master/stdout.txt
+
+Ice.ProgramName=master
+IceGrid.Registry.Trace.Node=2
+IceGrid.Registry.Trace.Replica=2

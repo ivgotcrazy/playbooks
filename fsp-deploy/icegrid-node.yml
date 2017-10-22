@@ -1,0 +1,22 @@
+---
+
+- name: install icegrid-node
+  hosts: icegrid-node1
+  gather_facts: False
+
+  tasks:
+    - name: copy file
+      copy:
+        src: "files/icegrid/node1"
+        dest: "/opt/icegrid"
+
+    - name: set file mode
+      file:
+        path: /opt/icegrid/node1/ice_server
+        mode: 0744
+
+    - name: set file mode
+      file:
+        path: /opt/icegrid/node1/redis-cli
+        mode: 0744
+    
