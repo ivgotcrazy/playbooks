@@ -1,0 +1,16 @@
+---
+
+- name: prerequisites
+  hosts: all
+  gather_facts: False
+  
+  tasks:
+    - name: install libselinux-python
+      yum:
+        name: libselinux-python
+        state: installed
+
+    - name: install jdk1.8.0
+      yum:
+        name: java-1.8.0-openjdk
+        state: installed

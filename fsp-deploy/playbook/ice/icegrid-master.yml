@@ -1,0 +1,26 @@
+---
+
+- name: install icegrid-master
+  hosts: icegrid-master
+  gather_facts: False
+
+  tasks:
+    - name: make master directory
+      file:
+        path: /opt/ice/master/db/master
+        state: directory
+
+    - name: copy master config
+      copy:
+        src: files/config.master
+        dest: /opt/ice/master
+
+    - name: make app directory
+      file:
+        path: /opt/ice/application
+        state: directory
+
+    - name: copy app config
+      copy:
+        src: files/icegrid/register_app/application.xml
+        dest: /opt/ice/application

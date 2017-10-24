@@ -1,0 +1,11 @@
+48804a6de53953996f66430455eec0a6  ./master/config.master
+7ed0a1011df243a539857aa39b1c3309  ./replica/config.replica
+bdd0e37956df5969d81216132bcfceb3  ./node1/config.server
+740cbe7f8e6e2019c9da4b3303cf902f  ./node1/ice_server
+1e39a85a0cd76e8b3ddf27456f98bae4  ./node1/redis-cli
+75aab0e5edc9260fdd16e7f155264fee  ./node2/config.server
+740cbe7f8e6e2019c9da4b3303cf902f  ./node2/ice_server
+1e39a85a0cd76e8b3ddf27456f98bae4  ./node2/redis-cli
+c321fd9497836f7f700a789deb7cbf63  ./register_app/config.client
+f71ab2c71488f7bea4bac6eebafdd483  ./register_app/application.xml
+43a7a45b8ae9cdbc7988b7d7fce31170  ./README.md

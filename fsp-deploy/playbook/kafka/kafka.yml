@@ -1,0 +1,11 @@
+---
+
+- name: install kafka
+  hosts: kafka1
+  gather_facts: False
+
+  tasks:
+    - name: uncompress kafka
+      unarchive:
+        src: "files/kafka_2.11-0.10.1.1.tgz"
+        dest: "/usr/local/src/"

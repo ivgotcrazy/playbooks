@@ -1,0 +1,26 @@
+---
+
+- name: install zookeeper
+  hosts: zk1
+  gather_facts: False
+
+  tasks:
+    - name: uncompress zookeeper
+      unarchive:
+        src: "files/zookeeper-3.4.9.tar.gz"
+        dest: "/usr/local/src/"
+
+    - name: make data dir
+      file:
+        path: /usr/local/src/zookeeper-3.4.9/data/zookeeper
+        state: directory
+
+    - name: make log dir
+      file:
+        path: /usr/local/src/zookeeper-3.4.9/log
+        state: directory
+
+    - name: copy config
+      copy:
+        src: files/zoo.cfg
+        dest: /usr/local/src/zookeeper-3.4.9/conf

@@ -4,3 +4,9 @@ redis1 ansible_ssh_host=192.168.7.62 ansible_ssh_port=22
 [ice]
 icegrid-master ansible_ssh_host=192.168.7.62 ansible_ssh_port=22
 icegrid-node1 ansible_ssh_host=192.168.7.62 ansible_ssh_port=22
+
+[zookeeper]
+zk1 ansible_ssh_host=192.168.7.62 ansible_ssh_port=22
+
+[kafka]
+kafka1 ansible_ssh_host=192.168.7.62 ansible_ssh_port=22
