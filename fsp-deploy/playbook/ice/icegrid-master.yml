@@ -3,7 +3,8 @@
 - name: install icegrid-master
   hosts: icegrid-master
   gather_facts: False
-
+  vars:
+    files_dir: ../..
   tasks:
     - name: make master directory
       file:
@@ -12,7 +13,7 @@
 
     - name: copy master config
       copy:
-        src: files/config.master
+        src: "{{ files_dir }}/files/ice/config.master"
         dest: /opt/ice/master
 
     - name: make app directory
@@ -22,5 +23,5 @@
 
     - name: copy app config
       copy:
-        src: files/icegrid/register_app/application.xml
+        src: "{{ files_dir }}/files/ice/icegrid/register_app/application.xml"
         dest: /opt/ice/application

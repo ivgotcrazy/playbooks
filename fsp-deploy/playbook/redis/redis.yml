@@ -3,21 +3,22 @@
 - name: install redis
   hosts: redis
   gather_facts: False
-
+  vars:
+    root_dir: ../..
   tasks:
     - name: uncompress redis
       unarchive:
-        src: "files/redis/redis-3.2.6.tar.gz"
+        src: "{{ root_dir }}/files/redis/redis-3.2.6.tar.gz"
         dest: "/usr/local/"
 
     - name: copy redis config
       copy:
-        src: files/redis.conf
+        src: "{{ root_dir }}/files/redis/redis.conf"
         dest: /usr/local/redis-3.2.6
 
     - name: copy sentinel config
       copy:
-        src: files/sentinel.conf
+        src: "{{ root_dir }}/files/redis/sentinel.conf"
         dest: /usr/local/redis-3.2.6
 
     - name: set REDIS_HOME

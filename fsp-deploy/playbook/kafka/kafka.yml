@@ -3,9 +3,10 @@
 - name: install kafka
   hosts: kafka1
   gather_facts: False
-
+  vars:
+    root_dir: ../..
   tasks:
     - name: uncompress kafka
       unarchive:
-        src: "files/kafka/kafka_2.11-0.10.1.1.tgz"
+        src: "{{ root_dir }}/files/kafka/kafka_2.11-0.10.1.1.tgz"
         dest: "/usr/local/src/"

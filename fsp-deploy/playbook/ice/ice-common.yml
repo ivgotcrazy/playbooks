@@ -3,11 +3,12 @@
 - name: install ice
   hosts: ice
   gather_facts: False
-
+  vars:
+    root_dir: ../..
   tasks:
     - name: uncompress ice
       unarchive:
-        src: "files/ice/Ice-3.5.1.tar.gz"
+        src: "{{ root_dir }}/files/ice/Ice-3.5.1.tar.gz"
         dest: "/usr/local/"
 
     - name: set ICE_HOME

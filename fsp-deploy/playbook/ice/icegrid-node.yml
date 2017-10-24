@@ -3,8 +3,10 @@
 - name: install icegrid-node
   hosts: icegrid-node1
   gather_facts: False
+  vars:
+    root_dir: ../..
   vars_files:
-    - vars/servers.yml
+    - "{{ root_dir }}/vars/servers.yml"
   tasks:
     - name: create dir
       file:
@@ -13,12 +15,12 @@
     
     - name: copy node config
       template:
-        src: templates/config.server.j2
+        src: "{{ root_dir }}/templates/config.server.j2"
         dest: /opt/ice/node1/config.server
 
     - name: copy server binary
       copy:
-        src: files/icegrid/node1/ice_server
+        src: "{{ root_dir }}/files/ice/icegrid/node1/ice_server"
         dest: /opt/ice/node1
 
     - name: set file mode

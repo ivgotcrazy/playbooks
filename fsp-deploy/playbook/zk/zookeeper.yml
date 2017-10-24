@@ -3,11 +3,12 @@
 - name: install zookeeper
   hosts: zk1
   gather_facts: False
-
+  vars:
+    root_dir: ../..
   tasks:
     - name: uncompress zookeeper
       unarchive:
-        src: "files/zk/zookeeper-3.4.9.tar.gz"
+        src: "{{ root_dir }}/files/zk/zookeeper-3.4.9.tar.gz"
         dest: "/usr/local/src/"
 
     - name: make data dir
