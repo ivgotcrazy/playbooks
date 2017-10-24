@@ -2,8 +2,8 @@
 
 # install fsp-sss
 
-- include: base.yml
-- include: redis.yml
-- include: ice-common.yml
-- include: icegrid-master.yml
-- include: icegrid-node.yml
+- include: playbook/base.yml
+- include: playbook/redis/redis.yml
+- include: playbook/ice/ice-common.yml
+- include: playbook/ice/icegrid-master.yml
+- include: playbook/ice/icegrid-node.yml

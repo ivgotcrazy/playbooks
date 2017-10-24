@@ -7,7 +7,7 @@
   tasks:
     - name: uncompress ice
       unarchive:
-        src: "files/Ice-3.5.1.tar.gz"
+        src: "files/ice/Ice-3.5.1.tar.gz"
         dest: "/usr/local/"
 
     - name: set ICE_HOME

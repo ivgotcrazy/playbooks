@@ -7,5 +7,5 @@
   tasks:
     - name: uncompress kafka
       unarchive:
-        src: "files/kafka_2.11-0.10.1.1.tgz"
+        src: "files/kafka/kafka_2.11-0.10.1.1.tgz"
         dest: "/usr/local/src/"

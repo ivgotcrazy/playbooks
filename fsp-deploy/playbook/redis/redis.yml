@@ -7,7 +7,7 @@
   tasks:
     - name: uncompress redis
       unarchive:
-        src: "files/redis-3.2.6.tar.gz"
+        src: "files/redis/redis-3.2.6.tar.gz"
         dest: "/usr/local/"
 
     - name: copy redis config

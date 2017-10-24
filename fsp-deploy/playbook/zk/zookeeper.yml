@@ -7,7 +7,7 @@
   tasks:
     - name: uncompress zookeeper
       unarchive:
-        src: "files/zookeeper-3.4.9.tar.gz"
+        src: "files/zk/zookeeper-3.4.9.tar.gz"
         dest: "/usr/local/src/"
 
     - name: make data dir
