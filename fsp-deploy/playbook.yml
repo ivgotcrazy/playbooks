@@ -1,9 +1,0 @@
----
-
-# install fsp-sss
-
-- include: base.yml
-- include: redis.yml
-- include: ice.yml
-- include: icegrid-master.yml
-- include: icegrid-node.yml
