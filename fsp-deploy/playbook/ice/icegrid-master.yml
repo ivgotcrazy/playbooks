@@ -23,5 +23,5 @@
 
     - name: copy app config
       copy:
-        src: "{{ files_dir }}/files/ice/icegrid/register_app/application.xml"
+        src: "{{ files_dir }}/files/cpp/icegrid/register_app/application.xml"
         dest: /opt/ice/application

@@ -1,0 +1,19 @@
+---
+
+- name: install sc
+  hosts: sc
+  gather_facts: True
+  vars:
+    root_dir: ../..
+  vars_files:
+    - "{{ root_dir }}/vars/servers.yml"
+  tasks:
+    - name: extract sc files
+      unarchive:
+        src: "{{ root_dir }}/files/java/fsp-sc-assembly.tar.gz"
+        dest: "/opt/"
+
+    - name: copy sc config
+      template:
+        src: "{{ root_dir }}/templates/sc.init.properties.j2"
+        dest: "/opt/fsp-sc/conf/init.properties"

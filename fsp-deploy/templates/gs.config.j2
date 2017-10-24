@@ -1,0 +1,11 @@
+{
+    "ip": "{{ hostvars[inventory_hostname].ansible_ens160.ipv4.address }}",
+    "instance_id": "gs1",
+    "kafka_brokers": "{{ kafka_group }}",
+    "zookeeper": "{{ zk_group }}",
+    "zk_root_node": "fsp",
+    "sc_topic": "sc_group_20170721",
+    "gc_topic": "gc_group_20170721",
+    "broadcast_topic": "broadcast_topic",
+    "listen_port": 50003
+}

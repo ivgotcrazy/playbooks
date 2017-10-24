@@ -1,0 +1,35 @@
+---
+
+- name: install gs
+  hosts: gs
+  gather_facts: True
+  vars:
+    root_dir: ../..
+  vars_files:
+    - "{{ root_dir }}/vars/servers.yml"
+  tasks:
+    - name: copy gs files
+      copy:
+        src: "{{ root_dir }}/files/cpp/gs"
+        dest: "/opt/"
+        directory_mode: yes
+
+    - name: copy gs config
+      template:
+        src: "{{ root_dir }}/templates/gs.config.j2"
+        dest: "/opt/gs/gs.config"
+
+    - name: set file mode
+      file:
+        path: "/opt/gs/group_server"
+        mode: 0755
+    
+    - name: set file mode
+      file:
+        path: "/opt/gs/libnet64.so"
+        mode: 0755
+    
+    - name: set file mode
+      file:
+        path: "/opt/gs/libframecore64.so"
+        mode: 0755

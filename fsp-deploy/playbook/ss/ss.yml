@@ -1,0 +1,35 @@
+---
+
+- name: install ss
+  hosts: ss
+  gather_facts: True
+  vars:
+    root_dir: ../..
+  vars_files:
+    - "{{ root_dir }}/vars/servers.yml"
+  tasks:
+    - name: copy ss files
+      copy:
+        src: "{{ root_dir }}/files/cpp/ss"
+        dest: "/opt/"
+        directory_mode: yes
+
+    - name: copy ss config
+      template:
+        src: "{{ root_dir }}/templates/ss.config.j2"
+        dest: "/opt/ss/ss.config"
+
+    - name: set stream_server file mode
+      file:
+        path: "/opt/ss/stream_server"
+        mode: 0755
+    
+    - name: set libframecore64.so file mode
+      file:
+        path: "/opt/ss/libframecore64.so"
+        mode: 0755
+  
+    - name: set libnet64.so file mode
+      file:
+        path: "/opt/ss/libnet64.so"
+        mode: 0755

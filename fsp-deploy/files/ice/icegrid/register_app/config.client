@@ -1,7 +1,0 @@
-Ice.Default.Locator=DBIceGrid/Locator:default -h 192.168.7.75 -p 10000:default -h 192.168.7.125 -p 10001
-
-Ice.Override.Timeout=10000
-
-IceGridAdmin.Username=benoit
-IceGridAdmin.Password=dummy
-

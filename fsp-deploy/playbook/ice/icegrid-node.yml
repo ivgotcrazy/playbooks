@@ -8,7 +8,7 @@
   vars_files:
     - "{{ root_dir }}/vars/servers.yml"
   tasks:
-    - name: create dir
+    - name: create directory
       file:
         path: /opt/ice/node1/db/node1
         state: directory
@@ -20,7 +20,7 @@
 
     - name: copy server binary
       copy:
-        src: "{{ root_dir }}/files/ice/icegrid/node1/ice_server"
+        src: "{{ root_dir }}/files/cpp/icegrid/node1/ice_server"
         dest: /opt/ice/node1
 
     - name: set file mode

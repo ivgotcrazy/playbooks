@@ -1,0 +1,19 @@
+---
+
+- name: install sc
+  hosts: gc
+  gather_facts: True
+  vars:
+    root_dir: ../..
+  vars_files:
+    - "{{ root_dir }}/vars/servers.yml"
+  tasks:
+    - name: extract gc package
+      unarchive:
+        src: "{{ root_dir }}/files/java/fsp-gc-1.0-SNAPSHOT-assembly.tar.gz"
+        dest: "/opt/"
+
+    - name: copy gc config
+      template:
+        src: "{{ root_dir }}/templates/gc.init.properties.j2"
+        dest: "/opt/fsp-gc-1.0-SNAPSHOT/conf/init.properties"

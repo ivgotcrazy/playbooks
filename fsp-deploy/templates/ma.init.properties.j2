@@ -1,0 +1,31 @@
+application.name=ma
+
+#kafka服务器集群地址
+bootstrap.servers={{ kafka_group }}
+#zookeeper服务器集群地址
+zookeeper.servers={{ zk_group }}
+#zookeeper连接超时时间，单位：ms
+zk.connection.timeout=5000
+#zookeeper会话超时时间，单位：ms
+zk.session.timeout=5000
+#zk acl 配置属性
+zk.acl.name=ma
+zk.acl.password=123456
+#ice addr
+ice.addr={{ ice_locator }}
+#MA所在zk中的父节点
+service.parent.node=/fsp/ma
+#MA的topic,也是MA的注册节点名,instance必须为GS或者SS的instance id
+node.ma.topic=ma_instance84
+#topic 分区数
+topic.partions=1
+#topic 副本数量
+topic.replication=1
+#最多ping多少次
+ping.times= 5
+#ping多久超时
+ping.timeout= 10
+#距离计算公式，D表示时延，L表示丢包率,数学符号说明:p(a,b)表示a的b次方，s(a)表示对a开方。。。
+distance.expression = (p(L+1,2)-1)*32+D
+#节点的网络带宽
+ma.bandwidth=1000
