@@ -1,0 +1,21 @@
+---
+# install apr-util
+- name: extract apr-util
+  unarchive:
+    src: "{{ root_dir }}/files/tomcat/apr-util-1.5.4.tar.gz"
+    dest: "/usr/local/src/"
+
+- name: configure apr-util
+  command: ./configure --prefix=/usr/local/apr-util --with-apr=/usr/local/apr
+  args:
+    chdir: /usr/local/src/apr-util-1.5.4/
+
+- name: compile apr-util
+  command: make -j8
+  args:
+    chdir: /usr/local/src/apr-util-1.5.4/
+
+- name: install apr-util
+  command: make install
+  args:
+    chdir: /usr/local/src/apr-util-1.5.4/

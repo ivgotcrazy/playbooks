@@ -8,6 +8,9 @@
   vars_files:
     - "{{ root_dir }}/vars/servers.yml"
   tasks:
+    # install jdk
+    - include: ../common/jdk.yml
+
     - name: extract sc files
       unarchive:
         src: "{{ root_dir }}/files/java/fsp-sc-assembly.tar.gz"

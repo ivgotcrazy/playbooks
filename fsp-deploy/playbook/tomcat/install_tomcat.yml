@@ -1,0 +1,26 @@
+---
+
+- name: install tomcat
+  hosts: sp
+  gather_facts: False
+  vars:
+    root_dir: ../..
+
+  tasks:
+    # install gcc
+    - include: ../common/gcc.yml
+
+    # install jdk
+    - include: ../common/jdk.yml
+
+    # install apr
+    - include: apr.yml
+
+    # install apr-util
+    - include: apr-util.yml
+
+    # install openssl
+    - include: openssl.yml
+
+    # install tomcat
+    - include: tomcat.yml

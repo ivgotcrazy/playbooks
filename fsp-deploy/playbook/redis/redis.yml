@@ -24,12 +24,10 @@
     - name: set REDIS_HOME
       lineinfile: 
         path: /etc/profile
-        regexp: 'REDIS_HOME='
         line: 'REDIS_HOME=/usr/local/redis-3.2.6'
 
     - name: set PATH
       lineinfile:
         path: /etc/profile
-        regexp: 'export PATH=$PATH:$REDIS_HOME'
         line: 'export PATH=$PATH:$REDIS_HOME'
        

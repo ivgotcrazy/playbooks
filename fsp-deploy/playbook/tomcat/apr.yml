@@ -1,0 +1,22 @@
+---
+
+# install apr
+- name: extract apr
+  unarchive:
+    src: "{{ root_dir }}/files/tomcat/apr-1.5.2.tar.gz"
+    dest: "/usr/local/src/"
+
+- name: configure apr
+  command: ./configure --prefix=/usr/local/apr
+  args:
+    chdir: /usr/local/src/apr-1.5.2/
+
+- name: compile apr
+  command: make -j8
+  args:
+    chdir: /usr/local/src/apr-1.5.2/
+
+- name: install apr
+  command: make install
+  args:
+    chdir: /usr/local/src/apr-1.5.2/

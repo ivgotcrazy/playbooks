@@ -31,3 +31,12 @@ gc1 ansible_ssh_host=192.168.7.62 ansible_ssh_port=22
 
 [sc]
 sc1 ansible_ssh_host=192.168.7.62 ansible_ssh_port=22
+
+[sp]
+sp1 ansible_ssh_host=192.168.7.62 ansible_ssh_port=22
+
+[access]
+access1 ansible_ssh_host=192.168.7.62 ansible_ssh_port=22
+
+
+

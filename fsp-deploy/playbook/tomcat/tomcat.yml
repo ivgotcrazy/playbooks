@@ -1,0 +1,27 @@
+---
+
+# install tomcat
+- name: extract tomcat
+  unarchive:
+    src: "{{ root_dir }}/files/tomcat/apache-tomcat-9.0.0.M17.tar.gz"
+    dest: "/usr/local/src/"
+
+- name: extract tomcat-native
+  command: tar -xf tomcat-native.tar.gz
+  args:
+    chdir: /usr/local/src/apache-tomcat-9.0.0.M17/bin/
+
+- name: configure tomcat 
+  command: ./configure --prefix=/usr/local/tomcat --with-apr=/usr/local/apr --with-ssl=/usr/local/openssl
+  args:
+    chdir: /usr/local/src/apache-tomcat-9.0.0.M17/bin/tomcat-native-1.2.10-src/native
+
+- name: compile tomcat
+  command: make -j8
+  args:
+    chdir: /usr/local/src/apache-tomcat-9.0.0.M17/bin/tomcat-native-1.2.10-src/native
+
+- name: install tomcat
+  command: make install
+  args:
+    chdir: /usr/local/src/apache-tomcat-9.0.0.M17/bin/tomcat-native-1.2.10-src/native

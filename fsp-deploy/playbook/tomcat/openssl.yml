@@ -1,0 +1,45 @@
+---
+# install openssl
+- name: extract openssl
+  unarchive:
+    src: "{{ root_dir }}/files/tomcat/openssl-1.0.2h.tar.gz"
+    dest: "/usr/local/src/"
+
+- name: install perl5
+  yum:
+    name: perl
+    state: installed
+
+- name: configure openssl
+  command: ./config shared --prefix=/usr/local/openssl
+  args:
+    chdir: /usr/local/src/openssl-1.0.2h/
+
+- name: make depend for openssl
+  command: make depend
+  args:
+    chdir: /usr/local/src/openssl-1.0.2h/
+
+- name: compile openssl
+  command: make -j8
+  args:
+    chdir: /usr/local/src/openssl-1.0.2h/
+
+- name: install openssl
+  command: make install
+  args:
+    chdir: /usr/local/src/openssl-1.0.2h/
+
+- name: export openssl
+  lineinfile:
+    path: /etc/profile
+    line: "export OPENSSL=/usr/local/openssl/bin"
+
+- name: export path
+  lineinfile:
+    path: /etc/profile
+    line: "export PATH=$OPENSSL:$PATH"
+
+- name: source profile
+  shell: "source /etc/profile"
+

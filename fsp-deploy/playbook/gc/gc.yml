@@ -8,6 +8,9 @@
   vars_files:
     - "{{ root_dir }}/vars/servers.yml"
   tasks:
+    # install jdk
+    - include: ../common/jdk.yml
+
     - name: extract gc package
       unarchive:
         src: "{{ root_dir }}/files/java/fsp-gc-1.0-SNAPSHOT-assembly.tar.gz"

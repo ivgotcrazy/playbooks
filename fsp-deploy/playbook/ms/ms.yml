@@ -8,6 +8,9 @@
   vars_files:
     - "{{ root_dir }}/vars/servers.yml"
   tasks:
+    # include jdk
+    - include: ../common/jdk.yml
+
     - name: uncompress ms
       unarchive:
         src: "{{ root_dir }}/files/java/fsp-ms-1.0-SNAPSHOT-assembly.tar.gz"
