@@ -4,24 +4,35 @@
 - name: extract tomcat
   unarchive:
     src: "{{ root_dir }}/files/tomcat/apache-tomcat-9.0.0.M17.tar.gz"
-    dest: "/usr/local/src/"
+    dest: "/usr/local/"
 
 - name: extract tomcat-native
-  command: tar -xf tomcat-native.tar.gz
-  args:
-    chdir: /usr/local/src/apache-tomcat-9.0.0.M17/bin/
+  unarchive:
+    src: /usr/local/apache-tomcat-9.0.0.M17/bin/tomcat-native.tar.gz
+    dest: /usr/local/apache-tomcat-9.0.0.M17/bin/
+    remote_src: yes
 
-- name: configure tomcat 
-  command: ./configure --prefix=/usr/local/tomcat --with-apr=/usr/local/apr --with-ssl=/usr/local/openssl
+- name: configure tomcat-native 
+  command: ./configure --prefix=/usr/local/native --with-apr=/usr/local/apr --with-ssl=/usr/local/openssl
   args:
-    chdir: /usr/local/src/apache-tomcat-9.0.0.M17/bin/tomcat-native-1.2.10-src/native
+    chdir: /usr/local/apache-tomcat-9.0.0.M17/bin/tomcat-native-1.2.10-src/native
 
-- name: compile tomcat
+- name: compile tomcat-native
   command: make -j8
   args:
-    chdir: /usr/local/src/apache-tomcat-9.0.0.M17/bin/tomcat-native-1.2.10-src/native
+    chdir: /usr/local/apache-tomcat-9.0.0.M17/bin/tomcat-native-1.2.10-src/native
 
-- name: install tomcat
+- name: install tomcat-native
   command: make install
   args:
-    chdir: /usr/local/src/apache-tomcat-9.0.0.M17/bin/tomcat-native-1.2.10-src/native
+    chdir: /usr/local/apache-tomcat-9.0.0.M17/bin/tomcat-native-1.2.10-src/native
+
+- name: set tomcat-native lib path in /etc/profile
+  lineinfile:
+    path: /etc/profile
+    line: "export LD_LIBRARY_PATH=/usr/local/native/lib:$LD_LIBRARY_PATH"
+
+- name: set tomcat-native lib path in /etc/bashrc
+  lineinfile:
+    path: /etc/bashrc
+    line: "export LD_LIBRARY_PATH=/usr/local/native/lib:$LD_LIBRARY_PATH"

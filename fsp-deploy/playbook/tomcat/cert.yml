@@ -1,0 +1,48 @@
+---
+
+# install tomcat
+- name: install expect
+  yum:
+    name: expect
+    state: installed
+
+- name: generate cert step 1
+  command: openssl genrsa -out server.key 2048
+  args:
+    chdir: /usr/local/apache-tomcat-9.0.0.M17/conf/
+
+- name: generate cert step 2
+  command: openssl rsa -in server.key -out server.key
+  args:
+    chdir: /usr/local/apache-tomcat-9.0.0.M17/conf/
+
+- name: generate cert step 3
+  shell: |
+    set timeout 3
+    spawn openssl req -new -x509 -key server.key -out ca.crt -days 3650
+
+    expect "Country Name"
+    send "\n"
+
+    expect "State or Province*"
+    send "\n"
+
+    expect "Locality Name*"
+    send "\n"
+
+    expect "Organization Name*"
+    send "\n"
+
+    expect "Organization Unit Name*"
+    send "\n"
+
+    expect "Common Name*"
+    send "\r\n"
+
+    expect "Email Address []:"
+    send "\n"
+
+    exit 0
+  args:
+    executable: /usr/bin/expect
+    chdir: /usr/local/apache-tomcat-9.0.0.M17/conf/
