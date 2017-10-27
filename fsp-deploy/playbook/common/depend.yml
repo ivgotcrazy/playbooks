@@ -1,0 +1,54 @@
+---
+
+- name: base enviroment
+  hosts: base
+  gather_facts: False
+  
+  vars:
+    root_dir: ../.. 
+ 
+  tasks:
+    - name: install libselinux-python
+      yum:
+        name: libselinux-python
+        state: installed
+
+- name: install jdk
+  hosts: jdk
+  gather_facts: False
+  
+  vars:
+    root_dir: ../.. 
+
+  tasks:
+    - include: jdk.yml
+
+- name: install gcc
+  hosts: gcc
+  gather_facts: False
+  
+  vars:
+    root_dir: ../.. 
+
+  tasks:
+    - include: gcc.yml
+
+- name: install tomcat
+  hosts: tomcat
+  gather_facts: False
+  
+  vars:
+    root_dir: ../.. 
+
+  tasks:
+    - include: tomcat/install_tomcat.yml
+
+- name: install ice
+  hosts: ice
+  gather_facts: False
+  
+  vars:
+    root_dir: ../.. 
+
+  tasks:
+    - include: ice.yml

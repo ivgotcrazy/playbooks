@@ -1,0 +1,36 @@
+---
+
+- name: uncompress ice
+  unarchive:
+    src: "{{ root_dir }}/files/ice/Ice-3.5.1.tar.gz"
+    dest: "/usr/local/"
+
+- name: set ICE_HOME in /etc/profile
+  lineinfile:
+    path: /etc/profile
+    line: 'ICE_HOME=/usr/local/Ice-3.5.1'
+
+- name: set PATH in /etc/profile
+  lineinfile:
+    path: /etc/profile
+    line: 'export PATH=$PATH:$ICE_HOME'
+
+- name: set LD_LIBRARY_PATH in /etc/profile
+  lineinfile:
+    path: /etc/profile
+    line: 'export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$ICE_HOME/lib:$ICE_HOME/lib64'
+
+- name: set ICE_HOME in /etc/bashrc
+  lineinfile:
+    path: /etc/bashrc
+    line: 'ICE_HOME=/usr/local/Ice-3.5.1'
+
+- name: set PATH in /etc/bashrc
+  lineinfile:
+    path: /etc/bashrc
+    line: 'export PATH=$PATH:$ICE_HOME'
+
+- name: set LD_LIBRARY_PATH in /etc/bashrc
+  lineinfile:
+    path: /etc/bashrc
+    line: 'export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$ICE_HOME/lib:$ICE_HOME/lib64'
