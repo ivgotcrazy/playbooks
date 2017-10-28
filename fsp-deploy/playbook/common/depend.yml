@@ -1,7 +1,7 @@
 ---
 
 - name: base enviroment
-  hosts: base
+  hosts: all
   gather_facts: False
   
   vars:
@@ -11,6 +11,11 @@
     - name: install libselinux-python
       yum:
         name: libselinux-python
+        state: installed
+
+    - name: install unzip
+      yum:
+        name: unzip
         state: installed
 
 - name: install jdk

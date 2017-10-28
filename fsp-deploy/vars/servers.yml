@@ -1,5 +1,18 @@
 ---
+
+# FSP var
 redis_sentinel_group: 192.168.7.62:26379
 ice_locator: DBIceGrid/Locator:Default -h 192.168.7.62 -p 10000
 kafka_group: 192.168.7.62:9092
 zk_group: 192.168.7.62:2181
+
+# FMServer var
+dev_id: TeckTest
+verify_code: 1234
+
+access_addr: 192.168.7.62
+access_port: 8080
+
+fm_ice_locator: FMServiceIceGrid/Locator:tcp -h 192.168.5.56 -p 10001:tcp -h 192.168.5.57 -p 10001
+
+front_addr: 127.0.0.1

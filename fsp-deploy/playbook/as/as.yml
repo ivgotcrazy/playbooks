@@ -1,0 +1,50 @@
+---
+
+- name: install as
+  hosts: as
+  gather_facts: True
+  vars:
+    root_dir: ../..
+  vars_files:
+    - "{{ root_dir }}/vars/servers.yml"
+  tasks:
+    - name: extract FMServer
+      unarchive:
+        src: "{{ root_dir }}/files/as/FM_Server5.1.0.1.tar.gz"
+        dest: /opt/
+
+    - name: install FMMonitor
+      shell: "./install.sh monitor"
+      args:
+        chdir: /opt/FMServerInstall/
+
+    - name: install FMServer
+      shell: "./install.sh node"
+      args:
+        chdir: /opt/FMServerInstall/
+
+    - name: copy ServiceConfig.xml
+      template:
+        src: "{{ root_dir }}/templates/ServiceConfig.xml.j2"
+        dest: "/fsmeeting/FM_Server/bin/FMServer/ServiceConfig.xml"
+
+    - name: copy AccessConfig.xml
+      template:
+        src: "{{ root_dir }}/templates/AccessConfig.xml.j2"
+        dest: "/fsmeeting/FM_Server/bin/FMServer/AccessConfig.xml"
+      
+    - name: copy ice.property.cfg
+      template:
+        src: "{{ root_dir }}/templates/ice.property.cfg.j2"
+        dest: "/fsmeeting/FM_Server/bin/FMServer/ice.property.cfg.j2"
+    
+    - name: copy CascadeConfig.xml
+      copy:
+        src: "{{ root_dir }}/files/as/CascadeConfig.xml"
+        dest: "/fsmeeting/FM_Server/bin/FMServer/"
+
+    - name: copy iplib.db
+      copy:
+        src: "{{ root_dir }}/files/as/iplib.db"
+        dest: "/fsmeeting/FM_Server/bin/FMServer/"
+    

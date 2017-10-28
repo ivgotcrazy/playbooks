@@ -1,0 +1,37 @@
+---
+
+- name: install sp
+  hosts: sp
+  gather_facts: False
+  vars:
+    root_dir: ../..
+  vars_files:
+    - "{{ root_dir }}/vars/servers.yml"
+  tasks:
+
+    - name: create fsp-sp directory
+      file:
+        path: /opt/fsp-sp
+        state: directory
+
+    - name: extract sp package
+      unarchive:
+        src: "{{ root_dir }}/files/java/fsp-sp.war"
+        dest: "/opt/fsp-sp"
+
+    - name: copy sp config
+      template:
+        src: "{{ root_dir }}/templates/sp.init.properties.j2"
+        dest: "/opt/fsp-sp/WEB-INF/classes/init.properties"
+
+    - name: read sp config
+      command: "cat {{ root_dir }}/files/sp/sp.xml"
+      register: sp_xml
+      delegate_to: localhost
+
+    - name: insert sp config into server.xml
+      blockinfile:
+        path: /usr/local/apache-tomcat-9.0.0.M17/conf/server.xml
+        marker: "<!-- {mark} SP Service -->"
+        insertafter: "</Service>"
+        content: "{{ sp_xml.stdout }}"

@@ -1,0 +1,33 @@
+<Service name="fsp-sp">
+  <Connector port="8081" protocol="HTTP/1.1"
+             connectionTimeout="20000"
+             redirectPort="8444" />
+  <Connector port="8444" protocol="org.apache.coyote.http11.Http11AprProtocol"
+             maxThreads="150" SSLEnabled="true" >
+    <UpgradeProtocol className="org.apache.coyote.http2.Http2Protocol" />
+    <SSLHostConfig>
+      <Certificate certificateKeyFile="conf/server.key"
+                   certificateFile="conf/ca.crt"
+                   type="RSA" />
+    </SSLHostConfig>
+  </Connector>
+  <!-- Define an AJP 1.3 Connector on port 8009 -->
+  <Connector port="8010" protocol="AJP/1.3" redirectPort="8444" />
+  <Engine name="Catalina" defaultHost="localhost">
+    <Realm className="org.apache.catalina.realm.LockOutRealm">
+    <!-- This Realm uses the UserDatabase configured in the global JNDI
+     resources under the key "UserDatabase".  Any edits
+     that are performed against this UserDatabase are immediately
+     available for use by the Realm.  -->
+      <Realm className="org.apache.catalina.realm.UserDatabaseRealm"
+        resourceName="UserDatabase"/>
+      </Realm>
+    <Host name="localhost"  appBase="webapps"
+          unpackWARs="true" autoDeploy="true">
+      <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs"
+             prefix="fsp_sp_log" suffix=".txt"
+             pattern="%h %l %u %t &quot;%r&quot; %s %b" />
+      <Context path="" docBase="/fsp_sss_stream/fsp-sp" debug="0"/>
+    </Host>
+  </Engine>
+</Service>

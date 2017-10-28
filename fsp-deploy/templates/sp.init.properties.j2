@@ -1,0 +1,32 @@
+#kafka服务器集群地址
+bootstrap.servers={{ kafka_group }}
+#zookeeper服务器集群地址
+zookeeper.servers={{ zk_group }}
+#zookeeper连接超时时间，单位：ms
+zk.connection.timeout=5000
+#zookeeper会话超时时间，单位：ms
+zk.session.timeout=5000
+#ice addr
+ice.addr={{ ice_locator }}
+#topic 分区数
+topic.partions=3
+#topic 副本数量
+topic.replication=2
+group.id=sp_group1
+#当前sp的实例名称
+topic.sp.name = sp_instance85
+#每一个SC集群都有一个所在的topic组
+topic.sc.group.name = sc_group_20170906
+
+#每一个GC集群都有一个所在的topic组
+topic.gc.group.name = gc_group_20170906
+
+#当前sp节点的实例信息配置
+sp.server.id = sp_instance85
+sp.port = 8080
+
+#消息协议版本(kafka消息的读写版本号）
+message.protocol.version = 1
+
+#service register parent node
+service.parent.node=/fsp/sp

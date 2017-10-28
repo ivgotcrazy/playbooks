@@ -1,0 +1,55 @@
+﻿<!--配置文件大小写敏感，尤其注意！！！！！！！！！-->
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!--配置文件大小写敏感，尤其注意！！！！！！！！！-->
+
+<!--服务器组配置-->
+<ServerGroupSet>
+</ServerGroupSet>
+
+
+<!--非主服务器配置-->
+<NotMainServerSet>
+  <NotMainServer>dev65</NotMainServer>
+</NotMainServerSet>
+
+
+<!--SingleISP运营商配置,
+  必须为SingleISP运营商配置运营商规则
+  SingISP运营商用户,不会从默认运营商指定组中选择设备
+-->
+
+<!--基础服务迁移的服务器配置-->
+<FSPMServerCfg>
+  <MaxUserCount>100</MaxUserCount>
+  <FSPMServer>{{ dev_id }}</FSPMServer>
+</FSPMServerCfg>
+
+<!--接入规则配置-->
+<AccessRuleSet>
+  <UserNameRuleSet>
+    <!--用户名规则，可同时配置多个用户名到一个服务器组-->
+  </UserNameRuleSet>
+  <IPRuleSet>
+    <!--IP规则，配置IP段-->
+  </IPRuleSet>
+  <ISPRuleSet>
+    <!--运营商规则，可同时配置多个运营商到一个服务器组-->
+    <!--运营商规则，配置默认运营商规则，当运营商未知或未配置时，使用此规则-->
+    <ISPRule>
+      <ISPName></ISPName>
+      <GroupName>{{ dev_id }}</GroupName>
+    </ISPRule>
+  </ISPRuleSet>
+  <RegionRuleSet>
+    <!--地域规则(国外)，配置大洲，可同时配置多个地域到一个服务器组-->
+    <!--地域规则(国外)，配置默认地域规则-->
+    <RegionRule>
+      <RegionName></RegionName>
+      <GroupName>{{ dev_id }}</GroupName>
+    </RegionRule>
+  </RegionRuleSet>
+  <RegionISPRuleSet>
+    <!--国内可配置省+运营商指定服务器组-->
+  </RegionISPRuleSet>
+</AccessRuleSet>

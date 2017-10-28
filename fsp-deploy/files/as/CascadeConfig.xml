@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<Root>
+	<RoomMinMaxUserCount>20</RoomMinMaxUserCount>
+	<RoomMinCurUserCount>10</RoomMinCurUserCount>
+	<EnableCasAllRoom>1</EnableCasAllRoom>
+	<RoomIDList>
+		<RoomID>0</RoomID>
+	</RoomIDList>
+</Root>

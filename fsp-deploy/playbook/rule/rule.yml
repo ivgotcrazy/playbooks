@@ -1,0 +1,19 @@
+---
+
+- name: install rule
+  hosts: rule
+  gather_facts: False
+  vars:
+    root_dir: ../..
+  vars_files:
+    - "{{ root_dir }}/vars/servers.yml"
+  tasks:
+    - name: extract rule package
+      unarchive:
+        src: "{{ root_dir }}/files/java/fsp-rule-1.0-SNAPSHOT-assembly.tar.gz"
+        dest: "/opt/"
+
+    - name: copy rule config
+      template:
+        src: "{{ root_dir }}/templates/rule.init.properties.j2"
+        dest: "/opt/fsp-rule-1.0-SNAPSHOT/conf/init.properties"

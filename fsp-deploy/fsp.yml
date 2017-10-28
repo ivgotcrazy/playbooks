@@ -21,3 +21,5 @@
 
 - include: playbook/access/access.yml
 - include: playbook/sp/sp.yml
+
+- include: playbook/as/as.yml
