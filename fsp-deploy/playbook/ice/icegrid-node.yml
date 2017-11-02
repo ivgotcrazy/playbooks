@@ -1,29 +1,37 @@
 ---
 
 - name: install icegrid-node
-  hosts: icegrid-node1
+  hosts: icegrid-node
   gather_facts: False
   vars:
     root_dir: ../..
   vars_files:
     - "{{ root_dir }}/vars/servers.yml"
   tasks:
-    - name: create directory
+    - name: create db directory
       file:
         path: /opt/ice/node1/db/node1
         state: directory
+    
+    - name: create log directory
+      file:
+        path: /opt/ice/node1/log
+        state: directory
+        mode: 0777
     
     - name: copy node config
       template:
         src: "{{ root_dir }}/templates/config.server.j2"
         dest: /opt/ice/node1/config.server
 
-    - name: copy server binary
+    - name: copy ice_server
       copy:
         src: "{{ root_dir }}/files/cpp/icegrid/node1/ice_server"
         dest: /opt/ice/node1
+        mode: 0755
 
-    - name: set file mode
-      file:
-        path: /opt/ice/node1/ice_server
-        mode: 0744
+    - name: copy redis-cli
+      copy:
+        src: "{{ root_dir }}/files/cpp/icegrid/node1/redis-cli"
+        dest: /opt/ice/node1
+        mode: 0755

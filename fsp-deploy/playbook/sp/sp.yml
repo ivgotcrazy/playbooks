@@ -5,24 +5,25 @@
   gather_facts: False
   vars:
     root_dir: ../..
+    tomcat_dir: /usr/local/apache-tomcat-9.0.0.M17
+    sp_dir: "{{ tomcat_dir }}/www/fsp-sp"
   vars_files:
     - "{{ root_dir }}/vars/servers.yml"
   tasks:
-
     - name: create fsp-sp directory
       file:
-        path: /opt/fsp-sp
+        path: "{{ sp_dir }}"
         state: directory
 
     - name: extract sp package
       unarchive:
         src: "{{ root_dir }}/files/java/fsp-sp.war"
-        dest: "/opt/fsp-sp"
+        dest: "{{ sp_dir }}"
 
     - name: copy sp config
       template:
         src: "{{ root_dir }}/templates/sp.init.properties.j2"
-        dest: "/opt/fsp-sp/WEB-INF/classes/init.properties"
+        dest: "{{ sp_dir }}/WEB-INF/classes/init.properties"
 
     - name: read sp config
       command: "cat {{ root_dir }}/files/sp/sp.xml"
@@ -31,7 +32,7 @@
 
     - name: insert sp config into server.xml
       blockinfile:
-        path: /usr/local/apache-tomcat-9.0.0.M17/conf/server.xml
+        path: "{{ tomcat_dir }}/conf/server.xml"
         marker: "<!-- {mark} SP Service -->"
         insertafter: "</Service>"
         content: "{{ sp_xml.stdout }}"

@@ -6,15 +6,15 @@ group.id=gc_group2
 #zookeeper服务器集群地址
 zookeeper.servers={{ zk_group }}
 #zookeeper连接超时时间，单位：ms
-zk.connection.timeout=5000
+zk.connection.timeout=2000
 #zookeeper会话超时时间，单位：ms
-zk.session.timeout=5000
+zk.session.timeout=2000
 #ice addr
 ice.addr={{ ice_locator }}
 #topic 分区数
-topic.partions=3
+topic.partions=1
 #topic 副本数量
-topic.replication=2
+topic.replication=1
 #当前gc节点的topic名称
 topic.gc.name = gc_instance86
 #当前gc节点所在的topic组名称
@@ -33,7 +33,7 @@ max.instance.size = 10
 #分布式锁配置
 lock.root.path = /gclock
 #getStream接口锁的超时时间,单位：s
-lock.getStream.timeout=5
+lock.getStream.timeout=4
 
 #service register parent node
 service.parent.node=/fsp/gc

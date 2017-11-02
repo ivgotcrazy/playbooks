@@ -1,12 +1,19 @@
 ---
 
 - name: install kafka
-  hosts: kafka1
+  hosts: kafka
   gather_facts: False
   vars:
     root_dir: ../..
+  vars_files:
+    - "{{ root_dir }}/vars/servers.yml" 
   tasks:
     - name: uncompress kafka
       unarchive:
         src: "{{ root_dir }}/files/kafka/kafka_2.11-0.10.1.1.tgz"
-        dest: "/usr/local/src/"
+        dest: "/usr/local/"
+
+    - name: copy kafka config
+      template:
+        src: "{{ root_dir }}/templates/kafka.server.properties.j2"
+        dest: /usr/local/kafka_2.11-0.10.1.1/config/server.properties 

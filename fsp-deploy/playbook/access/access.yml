@@ -5,31 +5,25 @@
   gather_facts: False
   vars:
     root_dir: ../..
+    tomcat_dir: /usr/local/apache-tomcat-9.0.0.M17
+    access_dir: "{{ tomcat_dir }}/www/fsp-access"
   vars_files:
     - "{{ root_dir }}/vars/servers.yml"
   tasks:
-    # install jdk  
-    - include: ../common/jdk.yml
-
-    - name: install unzip
-      yum:
-        name: unzip
-        state: installed
-
     - name: create fsp-access directory
       file:
-        path: /opt/fsp-access
+        path: "{{ access_dir }}"
         state: directory
 
     - name: extract access
       unarchive:
         src: "{{ root_dir }}/files/java/fsp-access.war"
-        dest: "/opt/fsp-access"
+        dest: "{{ access_dir }}"
 
     - name: copy access config
       template:
         src: "{{ root_dir }}/templates/access.init.properties.j2"
-        dest: "/opt/fsp-access/WEB-INF/classes/init.properties"
+        dest: "{{ access_dir }}/WEB-INF/classes/init.properties"
 
     - name: read access config
       command: "cat {{ root_dir }}/files/access/access.xml"
@@ -38,7 +32,7 @@
 
     - name: insert to server.xml
       blockinfile:
-        path: /usr/local/apache-tomcat-9.0.0.M17/conf/server.xml
+        path: "{{ tomcat_dir }}/conf/server.xml"
         marker: "<!-- {mark} Access Service -->"
         insertafter: "</Service>"
         content: "{{ access_xml.stdout }}"

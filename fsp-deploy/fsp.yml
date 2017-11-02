@@ -1,14 +1,16 @@
 ---
 
-# install fsp-sss
-
+# install
 - include: playbook/common/depend.yml
 
+- include: playbook/zk/zk.yml
+
+- include: playbook/kafka/kafka.yml
+
 - include: playbook/redis/redis.yml
+
 - include: playbook/ice/icegrid-master.yml
 - include: playbook/ice/icegrid-node.yml
-- include: playbook/kafka/kafka.yml
-- include: playbook/zk/zk.yml
 
 - include: playbook/gs/gs.yml
 - include: playbook/ss/ss.yml
@@ -23,3 +25,6 @@
 - include: playbook/sp/sp.yml
 
 - include: playbook/as/as.yml
+
+# run
+- include: playbook/run.yml

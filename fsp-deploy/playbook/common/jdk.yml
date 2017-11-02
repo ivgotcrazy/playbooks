@@ -1,51 +1,59 @@
 ---
 
-# install jdk
 - name: install jdk
-  unarchive:
-    src: "{{ root_dir }}/files/jdk/jdk-8u111-linux-x64.tar.gz"
-    dest: /usr/local/
+  hosts: jdk
+  gather_facts: False
 
-# set enviroment variable in /etc/profile
-- name: set java home in /etc/profile
-  lineinfile:
-    path: /etc/profile
-    line: "export JAVA_HOME=/usr/local/jdk1.8.0_111/"
+  vars:
+    root_dir: ../..
 
-- name: set jre home in /etc/profile
-  lineinfile:
-    path: /etc/profile
-    line: "export JRE_HOME=/usr/local/jdk1.8.0_111/jre/"
+  tasks:
+    # install jdk
+    - name: install jdk
+      unarchive:
+        src: "{{ root_dir }}/files/jdk/jdk-8u111-linux-x64.tar.gz"
+        dest: /usr/local/
 
-- name: set java classpath in /etc/profile
-  lineinfile:
-    path: /etc/profile
-    line: "export CLASSPATH=.:$JAVA_HOME/jre/lib/rt.jar:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar"
+    # set enviroment variable in /etc/profile
+    - name: set java home in /etc/profile
+      lineinfile:
+        path: /etc/profile
+        line: "export JAVA_HOME=/usr/local/jdk1.8.0_111/"
 
-- name: set path in /etc/profile
-  lineinfile:
-    path: /etc/profile
-    line: "export PATH=$JAVA_HOME/bin:$PATH"
+    - name: set jre home in /etc/profile
+      lineinfile:
+        path: /etc/profile
+        line: "export JRE_HOME=/usr/local/jdk1.8.0_111/jre/"
+
+    - name: set java classpath in /etc/profile
+      lineinfile:
+        path: /etc/profile
+        line: "export CLASSPATH=.:$JAVA_HOME/jre/lib/rt.jar:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar"
+
+    - name: set path in /etc/profile
+      lineinfile:
+        path: /etc/profile
+        line: "export PATH=$JAVA_HOME/bin:$PATH"
 
 
-# set enviroment variable in /etc/bashrc
-- name: set java home in /etc/bashrc
-  lineinfile:
-    path: /etc/bashrc
-    line: "export JAVA_HOME=/usr/local/jdk1.8.0_111/"
+    # set enviroment variable in /etc/bashrc
+    - name: set java home in /etc/bashrc
+      lineinfile:
+        path: /etc/bashrc
+        line: "export JAVA_HOME=/usr/local/jdk1.8.0_111/"
 
-- name: set jre home in /etc/bashrc
-  lineinfile:
-    path: /etc/bashrc
-    line: "export JRE_HOME=/usr/local/jdk1.8.0_111/jre/"
+    - name: set jre home in /etc/bashrc
+      lineinfile:
+        path: /etc/bashrc
+        line: "export JRE_HOME=/usr/local/jdk1.8.0_111/jre/"
 
-- name: set java classpath in /etc/bashrc
-  lineinfile:
-    path: /etc/bashrc
-    line: "export CLASSPATH=.:$JAVA_HOME/jre/lib/rt.jar:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar"
+    - name: set java classpath in /etc/bashrc
+      lineinfile:
+        path: /etc/bashrc
+        line: "export CLASSPATH=.:$JAVA_HOME/jre/lib/rt.jar:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar"
 
-- name: set path in /etc/bashrc
-  lineinfile:
-    path: /etc/bashrc
-    line: "export PATH=$JAVA_HOME/bin:$PATH"
+    - name: set path in /etc/bashrc
+      lineinfile:
+        path: /etc/bashrc
+        line: "export PATH=$JAVA_HOME/bin:$PATH"
 

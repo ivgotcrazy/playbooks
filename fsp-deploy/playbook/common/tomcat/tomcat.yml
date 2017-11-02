@@ -1,38 +1,30 @@
 ---
 
-# install tomcat
-- name: extract tomcat
-  unarchive:
-    src: "{{ root_dir }}/files/tomcat/apache-tomcat-9.0.0.M17.tar.gz"
-    dest: "/usr/local/"
+- name: install tomcat
+  hosts: tomcat
+  gather_facts: False
 
-- name: extract tomcat-native
-  unarchive:
-    src: /usr/local/apache-tomcat-9.0.0.M17/bin/tomcat-native.tar.gz
-    dest: /usr/local/apache-tomcat-9.0.0.M17/bin/
-    remote_src: yes
+  vars:
+    root_dir: ../../..
 
-- name: configure tomcat-native 
-  command: ./configure --prefix=/usr/local/native --with-apr=/usr/local/apr --with-ssl=/usr/local/openssl
-  args:
-    chdir: /usr/local/apache-tomcat-9.0.0.M17/bin/tomcat-native-1.2.10-src/native
+  tasks:
+    # install par
+    - include: apr.yml
 
-- name: compile tomcat-native
-  command: make -j8
-  args:
-    chdir: /usr/local/apache-tomcat-9.0.0.M17/bin/tomcat-native-1.2.10-src/native
+    # install apr-util
+    - include: apr-util.yml
 
-- name: install tomcat-native
-  command: make install
-  args:
-    chdir: /usr/local/apache-tomcat-9.0.0.M17/bin/tomcat-native-1.2.10-src/native
+    # install openssl
+    - include: openssl.yml
 
-- name: set tomcat-native lib path in /etc/profile
-  lineinfile:
-    path: /etc/profile
-    line: "export LD_LIBRARY_PATH=/usr/local/native/lib:$LD_LIBRARY_PATH"
+    # install tomcat
+    - include: install_tomcat.yml
 
-- name: set tomcat-native lib path in /etc/bashrc
-  lineinfile:
-    path: /etc/bashrc
-    line: "export LD_LIBRARY_PATH=/usr/local/native/lib:$LD_LIBRARY_PATH"
+    # generate cert
+    - include: cert.yml
+
+    # copy config file
+    - name: copy config file
+      copy:
+        src: "{{ root_dir }}/files/tomcat/server.xml"
+        dest: /usr/local/apache-tomcat-9.0.0.M17/conf

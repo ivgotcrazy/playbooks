@@ -7,15 +7,15 @@ group.id=sc_group3
 #zookeeper服务器集群地址
 zookeeper.servers={{ zk_group }}
 #zookeeper连接超时时间，单位：ms
-zk.connection.timeout=5000
+zk.connection.timeout=2000
 #zookeeper会话超时时间，单位：ms
-zk.session.timeout=5000
+zk.session.timeout=2000
 #ice addr
 ice.addr={{ ice_locator }}
 #topic 分区数
-topic.partions=3
+topic.partions=1
 #topic 副本数量
-topic.replication=2
+topic.replication=1
 #当前sc 节点的topic名称
 topic.sc.name = sc_instance86
 #每一个SC集群都有一个所在的topic组
@@ -32,7 +32,7 @@ message.protocol.version = 1
 
 
 #返回规则实例规则最大个数
-max.instance.size = 5
+max.instance.size = 4
 
 #路径选择返回列表长度
 routerStatus.return.size =5

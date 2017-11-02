@@ -8,9 +8,6 @@
   vars_files:
     - "{{ root_dir }}/vars/servers.yml"
   tasks:
-    # install jdk  
-    - include: ../common/jdk.yml
-
     - name: extract ma
       unarchive:
         src: "{{ root_dir }}/files/java/fsp-ma-1.0-SNAPSHOT-assembly.tar.gz"

@@ -4,7 +4,9 @@
   hosts: icegrid-master
   gather_facts: False
   vars:
-    files_dir: ../..
+    root_dir: ../..
+  vars_files:
+    - "{{ root_dir }}/vars/servers.yml"
   tasks:
     - name: make master directory
       file:
@@ -13,15 +15,21 @@
 
     - name: copy master config
       copy:
-        src: "{{ files_dir }}/files/ice/config.master"
+        src: "{{ root_dir }}/files/cpp/icegrid/master/config.master"
         dest: /opt/ice/master
 
-    - name: make app directory
+    - name: make application directory
       file:
         path: /opt/ice/application
         state: directory
 
-    - name: copy app config
+    # TODO: test_ice_server problem!
+    - name: copy application config
       copy:
-        src: "{{ files_dir }}/files/cpp/icegrid/register_app/application.xml"
+        src: "{{ root_dir }}/files/ice/application.xml"
         dest: /opt/ice/application
+    
+    - name: copy registry client config
+      template:
+        src: "{{ root_dir }}/templates/config.client.j2"
+        dest: /opt/ice/application/config.client

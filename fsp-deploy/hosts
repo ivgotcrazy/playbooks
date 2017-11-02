@@ -1,58 +1,67 @@
 [jdk]
-jdk1 ansible_ssh_host=192.168.7.62 ansible_ssh_port=22
+192.168.7.62
 
 [gcc]
-gcc1 ansible_ssh_host=192.168.7.62 ansible_ssh_port=22
+192.168.7.62
+
+[pb]
+192.168.7.62
+192.168.7.110
+192.168.7.132
 
 [tomcat]
-tomcat1 ansible_ssh_host=192.168.7.62 ansible_ssh_port=22
+192.168.7.62
 
 [ice]
-ice1 ansible_ssh_host=192.168.7.62 ansible_ssh_port=22
+192.168.7.62
+192.168.7.110
+192.168.7.132
 
 [redis]
-redis1 ansible_ssh_host=192.168.7.62 ansible_ssh_port=22
+192.168.7.62
 
-[icegrid]
-icegrid-master ansible_ssh_host=192.168.7.62 ansible_ssh_port=22
-icegrid-node1 ansible_ssh_host=192.168.7.62 ansible_ssh_port=22
+[icegrid-master]
+192.168.7.62
+
+[icegrid-node]
+192.168.7.62
 
 [zk]
-zk1 ansible_ssh_host=192.168.7.62 ansible_ssh_port=22
+192.168.7.62
 
 [kafka]
-kafka1 ansible_ssh_host=192.168.7.62 ansible_ssh_port=22
+192.168.7.62
 
 [ms]
-ms1 ansible_ssh_host=192.168.7.62 ansible_ssh_port=22
+192.168.7.62
 
 [ma]
-ma1 ansible_ssh_host=192.168.7.110 ansible_ssh_port=22
-ma2 ansible_ssh_host=192.168.7.132 ansible_ssh_port=22
+192.168.7.110
+192.168.7.132
 
 [gs]
-gs1 ansible_ssh_host=192.168.7.110 ansible_ssh_port=22
-gs2 ansible_ssh_host=192.168.7.132 ansible_ssh_port=22
+192.168.7.110
+192.168.7.132
 
 [ss]
-ss1 ansible_ssh_host=192.168.7.110 ansible_ssh_port=22
-ss2 ansible_ssh_host=192.168.7.132 ansible_ssh_port=22
+192.168.7.110
+192.168.7.132
 
 [gc]
-gc1 ansible_ssh_host=192.168.7.62 ansible_ssh_port=22
+192.168.7.62
 
 [sc]
-sc1 ansible_ssh_host=192.168.7.62 ansible_ssh_port=22
+192.168.7.62
 
 [sp]
-sp1 ansible_ssh_host=192.168.7.62 ansible_ssh_port=22
+192.168.7.62
 
 [access]
-access1 ansible_ssh_host=192.168.7.62 ansible_ssh_port=22
+192.168.7.62
 
 [rule]
-rule1 ansible_ssh_host=192.168.7.62 ansible_ssh_port=22
+192.168.7.62
 
 [as]
-as1 ansible_ssh_host=192.168.7.62 ansible_ssh_port=22
+192.168.7.62
 

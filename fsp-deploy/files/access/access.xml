@@ -21,7 +21,7 @@
 			<Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs"
            	 prefix="fsp-access-log" suffix=".log"
            	 pattern="%h %l %u %t &quot;%r&quot; %s %b" />
-			<Context path="" docBase="/opt/fsp-access" debug="0"/>
+			<Context path="" docBase="/usr/local/apache-tomcat-9.0.0.M17/www/fsp-access" debug="0"/>
 		</Host>
 	</Engine>
 </Service>

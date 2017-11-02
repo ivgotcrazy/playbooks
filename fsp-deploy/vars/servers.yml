@@ -2,7 +2,7 @@
 
 # FSP var
 redis_sentinel_group: 192.168.7.62:26379
-ice_locator: DBIceGrid/Locator:Default -h 192.168.7.62 -p 10000
+ice_locator: DBIceGrid/Locator:default -h 192.168.7.62 -p 10000
 kafka_group: 192.168.7.62:9092
 zk_group: 192.168.7.62:2181
 
