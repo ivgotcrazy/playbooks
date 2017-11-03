@@ -1,0 +1,17 @@
+---
+
+- name: run zk
+  hosts: zk
+  gather_facts: False
+  tasks:
+    - name: execute run command
+      shell: "./zkServer.sh start"
+      args:
+        chdir: /usr/local/zookeeper-3.4.9/bin
+      register: result
+
+    - name: show run result
+      debug:
+        msg: "Start zookeeper success"
+      when: (result.stdout.find('already running') != -1) or
+            (result.stdout.find('Started') != -1)

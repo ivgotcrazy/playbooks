@@ -1,0 +1,22 @@
+---
+
+- name: start tomcat
+  hosts: tomcat
+  gather_facts: False
+  tasks:
+    - name: shutdown tomcat
+      shell: "./shutdown.sh"
+      args:
+        chdir: /usr/local/apache-tomcat-9.0.0.M17/bin
+      ignore_errors: yes
+
+    - name: startup tomcat
+      shell: "./startup.sh"
+      args:
+        chdir: /usr/local/apache-tomcat-9.0.0.M17/bin
+      register: result
+
+    - name: show tomcat run result
+      debug:
+        msg: "Start tomcat success"
+      when: result.stdout.find('Tomcat started') != -1

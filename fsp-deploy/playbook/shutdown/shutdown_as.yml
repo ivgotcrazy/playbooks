@@ -1,0 +1,27 @@
+---
+
+- name: shutdown FMMonitor and FMServer
+  hosts: as
+  gather_facts: False
+  tasks:
+    - name: shutdown FMMonitor
+      service:
+        name: FMMonitor
+        state: stopped
+
+    - name: shutdown FMServer
+      service:
+        name: FMServer
+        state: stopped
+
+    - name: check process
+      shell: "ps x | grep FM"
+      register: result
+
+    - name: check FMServer
+      fail: msg="shutdown FMServer failed"
+      when: result.stdout.find('FM_Server') != -1
+
+    - name: check FMMonitor
+      fail: msg="shutdown FMMonitor failed"
+      when: result.stdout.find('FMMonitor') != -1

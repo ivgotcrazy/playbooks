@@ -1,0 +1,29 @@
+---
+
+- name: start stream server
+  hosts: ss
+  gather_facts: False
+  tasks:
+    - name: check if SS already running
+      shell: "ps x | grep stream_server"
+      register: check_result
+
+    - name: show if SS already running
+      debug: msg="stream_server is already running"
+      when: check_result.stdout.find('./stream_server') != -1
+  
+    - block:
+      - name: execute run command
+        shell: "nohup ./stream_server < ss.config &"
+        args:
+          chdir: /opt/ss
+    
+      - name: check SS process
+        shell: "ps x | grep stream_server"
+        register: result
+
+      - name: show run result
+        debug:
+          msg: "Start stream server success"
+        when: result.stdout.find('./stream_server') != -1
+      when: check_result.stdout.find('./stream_server') == -1

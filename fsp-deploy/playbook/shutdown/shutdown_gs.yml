@@ -1,0 +1,20 @@
+---
+
+- name: shutdown group server
+  hosts: gs
+  gather_facts: False
+  tasks:
+    - name: check if GS running
+      shell: "ps x | grep group_server"
+      register: result
+ 
+    - block:
+      - name: shutdown GS
+        shell: "ps x | grep group_server | grep -v grep | awk '{print $1}' | xargs kill"
+      
+      - name: check if GS running
+        shell: "ps x | grep group_server"
+        register: check_result
+        failed_when: "'./group_server' in check_result.stdout"
+
+      when: result.stdout.find('./group_server') != -1

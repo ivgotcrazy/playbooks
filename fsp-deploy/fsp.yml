@@ -1,16 +1,21 @@
 ---
 
-# install
+# shutdown
+- include: playbook/shutdown/shutdown.yml
+
+# install dependance
 - include: playbook/common/depend.yml
 
+# install middle-ware
 - include: playbook/zk/zk.yml
 
 - include: playbook/kafka/kafka.yml
 
 - include: playbook/redis/redis.yml
 
-- include: playbook/ice/icegrid-master.yml
-- include: playbook/ice/icegrid-node.yml
+# install service
+- include: playbook/icegrid/icegrid-registry.yml
+- include: playbook/icegrid/icegrid-node.yml
 
 - include: playbook/gs/gs.yml
 - include: playbook/ss/ss.yml
@@ -24,7 +29,8 @@
 - include: playbook/access/access.yml
 - include: playbook/sp/sp.yml
 
+# install AS
 - include: playbook/as/as.yml
 
 # run
-- include: playbook/run.yml
+- include: playbook/run/run.yml

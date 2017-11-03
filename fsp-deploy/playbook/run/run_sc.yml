@@ -1,0 +1,20 @@
+---
+
+- name: start SC
+  hosts: sc
+  gather_facts: False
+  tasks:
+    - name: execute run command
+      shell: "./sc_start.sh"
+      args:
+        chdir: /opt/fsp-sc/bin
+      ignore_errors: yes
+
+    - name: jps
+      shell: "jps"
+      register: result
+
+    - name: show SC run result
+      debug:
+        msg: "Start SC success"
+      when: result.stdout.find('SC') != -1

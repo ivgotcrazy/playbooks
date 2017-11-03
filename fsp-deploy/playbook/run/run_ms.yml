@@ -1,0 +1,20 @@
+---
+
+- name: start MS
+  hosts: ms
+  gather_facts: False
+  tasks:
+    - name: execute run command
+      shell: "./ms_start.sh"
+      args:
+        chdir: /opt/fsp-ms-1.0-SNAPSHOT/bin
+      ignore_errors: yes
+
+    - name: jps
+      shell: "jps"
+      register: result
+
+    - name: show MS run result
+      debug:
+        msg: "Start MS success"
+      when: result.stdout.find('MS') != -1

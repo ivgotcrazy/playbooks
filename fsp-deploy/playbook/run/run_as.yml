@@ -1,0 +1,15 @@
+---
+
+- name: start FMMonitor and FMServer
+  hosts: fmserver
+  gather_facts: False
+  tasks:
+    - name: start FMServer
+      service:
+        name: FMServer
+        state: started
+
+    - name: start FMMonitor
+      service:
+        name: FMMonitor
+        state: started

@@ -1,0 +1,16 @@
+---
+
+- name: shutdown MS
+  hosts: ms
+  gather_facts: False
+  tasks:
+    - name: execute stop command
+      shell: "./ms_stop.sh"
+      args:
+        chdir: /opt/fsp-ms-1.0-SNAPSHOT/bin
+      ignore_errors: yes
+
+    - name: check shutdown result
+      shell: "jps"
+      register: result
+      failed_when: result.stdout.find('MS') != -1

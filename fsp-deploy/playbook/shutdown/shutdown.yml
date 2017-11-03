@@ -1,0 +1,43 @@
+---
+
+# start zk
+- include: shutdown_zk.yml
+
+# start kafka
+- include: shutdown_kafka.yml
+
+# start redis
+- include: shutdown_redis.yml
+
+# start icegrid registry
+- include: shutdown_icegridregistry.yml
+
+# start icegrid node
+- include: shutdown_icegridnode.yml
+
+# start MS
+- include: shutdown_ms.yml
+
+# start Rule
+- include: shutdown_rule.yml
+
+# start SC
+- include: shutdown_sc.yml
+
+# start GC
+- include: shutdown_gc.yml
+
+# start MA
+- include: shutdown_ma.yml
+
+# start SS
+- include: shutdown_ss.yml
+
+# start GS
+- include: shutdown_gs.yml
+
+# start tomcat
+- include: shutdown_tomcat.yml
+
+# shutdown as
+- include: shutdown_as.yml

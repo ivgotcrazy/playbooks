@@ -1,0 +1,16 @@
+---
+
+- name: shutdown MA
+  hosts: ma
+  gather_facts: False
+  tasks:
+    - name: execute stop command
+      shell: "./ma_stop.sh"
+      args:
+        chdir: /opt/fsp-ma-1.0-SNAPSHOT/bin
+      ignore_errors: yes
+
+    - name: check shutdown result
+      shell: "jps"
+      register: result
+      failed_when: result.stdout.find('MA') != -1

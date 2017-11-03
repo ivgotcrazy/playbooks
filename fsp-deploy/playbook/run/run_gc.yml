@@ -1,0 +1,20 @@
+---
+
+- name: start GC
+  hosts: gc
+  gather_facts: False
+  tasks:
+    - name: execute run command
+      shell: "./gc_start.sh"
+      args:
+        chdir: /opt/fsp-gc-1.0-SNAPSHOT/bin
+      ignore_errors: yes
+
+    - name: jps
+      shell: "jps"
+      register: result
+
+    - name: show GC run result
+      debug:
+        msg: "Start GC success"
+      when: result.stdout.find('GC') != -1

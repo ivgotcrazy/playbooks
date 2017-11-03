@@ -1,0 +1,20 @@
+---
+
+- name: start MA
+  hosts: ma
+  gather_facts: False
+  tasks:
+    - name: execute run command
+      shell: "./ma_start.sh"
+      args:
+        chdir: /opt/fsp-ma-1.0-SNAPSHOT/bin
+      ignore_errors: yes
+
+    - name: jps
+      shell: "jps"
+      register: result
+
+    - name: show MA run result
+      debug:
+        msg: "Start MA success"
+      when: result.stdout.find('MA') != -1

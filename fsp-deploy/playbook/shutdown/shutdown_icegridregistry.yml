@@ -1,0 +1,20 @@
+---
+
+- name: shutdown icegridregistry
+  hosts: icegrid-registry
+  gather_facts: False
+  tasks:
+    - name: check if icegridregistry already running
+      shell: "ps aux | grep icegridregistry | grep -v grep"
+      register: check_result
+      ignore_errors: yes
+
+    - block:
+      - name: shutdown icegridregistry
+        shell: "ps x | grep icegridregistry | grep -v grep | awk '{print $1}' | xargs kill"
+
+      - name: check shutdown result 
+        shell: "ps x | grep icegridregistry | grep -v grep"
+        register: result
+        failed_when: result.stdout.find('icegridregistry') != -1
+      when: check_result.stdout.find('icegridregistry') != -1

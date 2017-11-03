@@ -1,0 +1,40 @@
+---
+
+- name: run icegrid registry
+  hosts: icegrid-registry
+  gather_facts: False
+  tasks:
+    - name: is already running?
+      shell: "ps aux | grep ice"
+      register: check_result
+      
+    - name: check 
+      debug: msg="icegridregistry is already running"
+      when: check_result.stdout.find('icegridregistry') != -1
+
+    - block:
+
+      - name: start icegrid registry
+        shell: "icegridregistry --Ice.Config=config.master --daemon --nochdir"
+        args:
+          chdir: /opt/ice/master
+
+      - name: remove application
+        shell: "icegridadmin --Ice.Config=config.client -e \"application remove 'DBApp'\""
+        args:
+          chdir: /opt/ice/application
+
+      - name: register ice application
+        shell: "icegridadmin --Ice.Config=config.client -e \"application add 'application.xml' \""
+        args:
+          chdir: /opt/ice/application
+
+      - name: check process existance
+        shell: "ps aux | grep ice"
+        register: result
+
+      - name: show icegridregistry run result
+        debug:
+          msg: "Start icegridregistry success"
+        when: result.stdout.find('icegridregistry') != -1
+      when: check_result.stdout.find('icegridregistry') == -1

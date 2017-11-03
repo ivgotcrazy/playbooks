@@ -1,0 +1,21 @@
+---
+
+- name: configure yum
+  hosts: all
+  gather_facts: False
+
+  vars:
+    root_dir: ../..
+
+  tasks:
+    - name: bakeup CentOS-Base.repo
+      shell: "mv /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.backup"
+
+    - name: download aliyun repo
+      shell: "wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo"
+
+    - name: rebuild rpmdb
+      shell: "rpm --rebuilddb"
+
+    - name: make yum cache
+      shell: "yum makecache"

@@ -3,14 +3,14 @@
 # install base env
 - include: base.yml
 
+# configure yum
+# - include: yum.yml
+
+# install base lib
+- include: lib.yml
+
 # install jdk
 - include: jdk.yml
 
-# install gcc
-- include: gcc.yml
-
 # install tomcat
 - include: tomcat/tomcat.yml
-
-# install ice
-- include: ice.yml

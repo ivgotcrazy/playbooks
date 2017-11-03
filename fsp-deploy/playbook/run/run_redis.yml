@@ -1,0 +1,29 @@
+---
+
+- name: run redis
+  hosts: redis
+  gather_facts: False
+  tasks:
+    - name: run redis-server
+      shell: "./redis-server redis.conf"
+      args:
+        chdir: /usr/local/redis-3.2.6
+
+    - name: run redis-sentinel
+      shell: "./redis-sentinel sentinel.conf"
+      args:
+        chdir: /usr/local/redis-3.2.6
+
+    - name: ps
+      shell: "ps x | grep redis"
+      register: result
+
+    - name: check redis-server run result
+      debug:
+        msg: "Start redis-server success"
+      when: result.stdout.find('redis-server') != -1
+    
+    - name: check redis-sentinel run result
+      debug:
+        msg: "Start redis-sentinel success"
+      when: result.stdout.find('redis-sentinel') != -1

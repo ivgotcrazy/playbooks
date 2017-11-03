@@ -1,0 +1,20 @@
+---
+
+- name: shutdown icegridnode
+  hosts: icegrid-node
+  gather_facts: False
+  tasks:
+    - name: check if icegridnode already running
+      shell: "ps aux | grep icegridnode | grep -v grep"
+      register: check_result
+      ignore_errors: yes
+
+    - block:
+      - name: shutdown icegridnode
+        shell: "ps x | grep icegridnode | grep -v grep | awk '{print $1}' | xargs kill"
+
+      - name: check shutdown result 
+        shell: "ps x | grep icegridnode | grep -v grep"
+        register: result
+        failed_when: result.stdout.find('icegridnode') != -1
+      when: check_result.stdout.find('icegridnode') != -1

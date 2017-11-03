@@ -1,0 +1,16 @@
+---
+
+- name: shutdown rule
+  hosts: rule
+  gather_facts: False
+  tasks:
+    - name: execute stop command
+      shell: "./rule_stop.sh"
+      args:
+        chdir: /opt/fsp-rule-1.0-SNAPSHOT/bin
+      ignore_errors: yes
+
+    - name: jps
+      shell: "jps"
+      register: result
+      failed_when: result.stdout.find('Rule') != -1

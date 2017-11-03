@@ -1,0 +1,29 @@
+---
+
+- name: start group server
+  hosts: gs
+  gather_facts: False
+  tasks:
+    - name: check if GS already running
+      shell: "ps x | grep group_server"
+      register: check_result
+
+    - name: show if GS already running
+      debug: msg="group_server is already running"
+      when: check_result.stdout.find('./group_server') != -1
+  
+    - block:
+      - name: execute run command
+        shell: "nohup ./group_server < gs.config &"
+        args:
+          chdir: /opt/gs
+    
+      - name: check GS process
+        shell: "ps x | grep group_server"
+        register: result
+
+      - name: show run result
+        debug:
+          msg: "Start group_server success"
+        when: result.stdout.find('./group_server') != -1
+      when: check_result.stdout.find('./group_server') == -1

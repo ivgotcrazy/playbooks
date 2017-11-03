@@ -1,0 +1,16 @@
+---
+
+- name: shutdown tomcat
+  hosts: tomcat
+  gather_facts: False
+  tasks:
+    - name: shutdown tomcat
+      shell: "./shutdown.sh"
+      args:
+        chdir: /usr/local/apache-tomcat-9.0.0.M17/bin
+      ignore_errors: yes
+
+    - name: check tomcat shutdown result
+      shell: "ps x | grep tomcat | grep -v grep | awk '{print $1}' | xargs kill"
+      register: result
+      failed_when: result.stdout.find('tomcat') != -1

@@ -1,0 +1,16 @@
+---
+
+- name: shutdown SC
+  hosts: sc
+  gather_facts: False
+  tasks:
+    - name: execute shutdown command
+      shell: "./sc_stop.sh"
+      args:
+        chdir: /opt/fsp-sc/bin
+      ignore_errors: yes
+
+    - name: jps
+      shell: "jps"
+      register: result
+      failed_when: result.stdout.find('SC') != -1

@@ -1,0 +1,16 @@
+---
+
+- name: shutdown zk
+  hosts: zk
+  gather_facts: False
+  tasks:
+    - name: execute stop command
+      shell: "./zkServer.sh stop"
+      args:
+        chdir: /usr/local/zookeeper-3.4.9/bin
+      ignore_errors: yes
+
+    - name: show zk shutdown result
+      shell: "ps x | grep 'zoo.cfg' | grep -v grep"
+      register: result
+      failed_when: result.stdout.find('zoo.cfg') != -1

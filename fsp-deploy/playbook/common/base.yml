@@ -12,19 +12,7 @@
       yum:
         name: wget
         state: installed
-
-    - name: bakeup CentOS-Base.repo
-      shell: "mv /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.backup"
-
-    - name: download aliyun repo
-      shell: "wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo"
-
-    - name: rebuild rpmdb
-      shell: "rpm --rebuilddb"
-
-    - name: make yum cache
-      shell: "yum makecache"
-
+    
     - name: install libselinux-python
       yum:
         name: libselinux-python
@@ -34,42 +22,3 @@
       yum:
         name: unzip
         state: installed
-
-    - name: copy base lib
-      copy:
-        src: "{{ root_dir }}/files/base/"
-        dest: /usr/local/lib
-        mode: 0755
-
-    - name: create libstdc++ link
-      file:
-        src: /usr/local/lib/libstdc++.so.6.0.20
-        dest: /usr/local/lib/libstdc++.so.6
-        state: link
-
-    - name: create libjsoncpp link
-      file:
-        src: /usr/local/lib/libjsoncpp.so.1
-        dest: /usr/local/lib/libjsoncpp.so.0
-        state: link
-    
-    - name: create libjsoncpp link
-      file:
-        src: /usr/local/lib/libjsoncpp.so.0
-        dest: /usr/local/lib/libjsoncpp.so
-        state: link
-    
-    - name: create pb link
-      file:
-        src: /usr/local/lib/libprotobuf.so.12.0.0
-        dest: /usr/local/lib/libprotobuf.so.12
-        state: link
-    
-    - name: create pb link
-      file:
-        src: /usr/local/lib/libprotobuf.so.12
-        dest: /usr/local/lib/libprotobuf.so
-        state: link
-
-    - name: ldconfig
-      shell: "ldconfig"

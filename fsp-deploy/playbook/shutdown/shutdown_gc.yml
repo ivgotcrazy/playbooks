@@ -1,0 +1,16 @@
+---
+
+- name: shutdown GC
+  hosts: gc
+  gather_facts: False
+  tasks:
+    - name: execute stop command
+      shell: "./gc_stop.sh"
+      args:
+        chdir: /opt/fsp-gc-1.0-SNAPSHOT/bin
+      ignore_errors: yes
+
+    - name: check GC shutdown result
+      shell: "jps"
+      register: result
+      failed_when: result.stdout.find('GC') != -1

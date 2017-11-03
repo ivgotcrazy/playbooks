@@ -1,0 +1,19 @@
+---
+
+- name: run kafka
+  hosts: kafka
+  gather_facts: False
+  tasks:
+    - name: execute run command
+      shell: "./kafka-server-start.sh -daemon ../config/server.properties"
+      args:
+        chdir: /usr/local/kafka_2.11-0.10.1.1/bin
+
+    - name: jps
+      shell: "jps"
+      register: result
+
+    - name: show kafka run result
+      debug:
+        msg: "Start kafka success"
+      when: result.stdout.find('Kafka') != -1

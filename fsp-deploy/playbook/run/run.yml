@@ -1,0 +1,40 @@
+---
+
+# start zk
+- include: run_zk.yml
+
+# start kafka
+- include: run_kafka.yml
+
+# start redis
+- include: run_redis.yml
+
+# start icegrid registry
+- include: run_icegridregistry.yml
+
+# start icegrid node
+- include: run_icegridnode.yml
+
+# start MS
+- include: run_ms.yml
+
+# start Rule
+- include: run_rule.yml
+
+# start SC
+- include: run_sc.yml
+
+# start GC
+- include: run_gc.yml
+
+# start MA
+- include: run_ma.yml
+
+# start SS
+- include: run_ss.yml
+
+# start GS
+- include: run_gs.yml
+
+# start tomcat
+- include: run_tomcat.yml

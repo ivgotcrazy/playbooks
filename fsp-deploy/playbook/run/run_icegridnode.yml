@@ -1,0 +1,38 @@
+---
+
+- name: run icegrid node
+  hosts: icegrid-node
+  gather_facts: False
+  tasks:
+    - name: check if icegridnode already running
+      shell: "ps aux | grep ice"
+      register: check_result
+
+    - name: debug icegridnode
+      debug: msg="icegridnode is already running"
+      when: check_result.stdout.find('icegridnode') != -1
+    
+    - name: debug ice_server
+      debug: msg="ice_server is already running"
+      when: check_result.stdout.find('ice_server') != -1
+
+    - block:
+      - name: start icegrid node
+        shell: "icegridnode --Ice.Config=config.server --daemon --nochdir"
+        args:
+          chdir: /opt/ice/node1
+
+      - name: ps
+        shell: "ps aux | grep ice"
+        register: result
+
+      - name: show icegridnode run result
+        debug:
+          msg: "Start icegridnode success"
+        when: result.stdout.find('icegridnode') != -1
+      
+      - name: show ice_server run result
+        debug:
+          msg: "Start ice_server success"
+        when: result.stdout.find('ice_server') != -1
+      when: check_result.stdout.find('icegridnode') == -1

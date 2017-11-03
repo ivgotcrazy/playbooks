@@ -18,7 +18,12 @@
       args:
         chdir: /opt/FMServerInstall/
 
-    - name: install FMServer
+    - name: install FMServer-main
+      shell: "./install.sh main"
+      args:
+        chdir: /opt/FMServerInstall/
+
+    - name: install FMServer-node
       shell: "./install.sh node"
       args:
         chdir: /opt/FMServerInstall/
@@ -36,7 +41,7 @@
     - name: copy ice.property.cfg
       template:
         src: "{{ root_dir }}/templates/ice.property.cfg.j2"
-        dest: "/fsmeeting/FM_Server/bin/FMServer/ice.property.cfg.j2"
+        dest: "/fsmeeting/FM_Server/bin/FMServer/ice.property.cfg"
     
     - name: copy CascadeConfig.xml
       copy:

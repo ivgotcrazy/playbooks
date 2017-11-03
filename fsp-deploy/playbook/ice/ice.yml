@@ -36,7 +36,7 @@
     - name: set PATH in /etc/bashrc
       lineinfile:
         path: /etc/bashrc
-        line: 'export PATH=$PATH:$ICE_HOME'
+        line: 'export PATH=$PATH:$ICE_HOME/bin'
 
     - name: set LD_LIBRARY_PATH in /etc/bashrc
       lineinfile:
