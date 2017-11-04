@@ -59,6 +59,9 @@
 - include: playbook/ma/ma.yml
   tags: ma
 
+- include: playbook/rule/rule.yml
+  tags: rule
+
 - include: playbook/access/access.yml
   tags: access
 
