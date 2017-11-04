@@ -3,7 +3,10 @@
 - name: run rule
   hosts: rule
   gather_facts: False
+  tags:
+    - run_rule
   tasks:
+    # rule_start.sh can check if MA is running by itself
     - name: execute run command
       shell: "./rule_start.sh"
       args:

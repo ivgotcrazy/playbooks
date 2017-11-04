@@ -6,7 +6,7 @@
   vars:
     root_dir: ../..
   vars_files:
-    - "{{ root_dir }}/vars/servers.yml"
+    - "{{ root_dir }}/vars/global_vars.yml"
   tasks:
     - name: extract sc files
       unarchive:

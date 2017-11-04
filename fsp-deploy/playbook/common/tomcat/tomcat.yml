@@ -3,7 +3,8 @@
 - name: install tomcat
   hosts: tomcat
   gather_facts: False
-
+  tags:
+    - tomcat
   vars:
     root_dir: ../../..
 

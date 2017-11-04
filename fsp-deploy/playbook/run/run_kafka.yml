@@ -3,17 +3,34 @@
 - name: run kafka
   hosts: kafka
   gather_facts: False
+  tags:
+    - run_kafka
   tasks:
-    - name: execute run command
-      shell: "./kafka-server-start.sh -daemon ../config/server.properties"
-      args:
-        chdir: /usr/local/kafka_2.11-0.10.1.1/bin
-
-    - name: jps
+    - name: check if kafka is already running
       shell: "jps"
-      register: result
+      register: check_result
 
-    - name: show kafka run result
-      debug:
-        msg: "Start kafka success"
-      when: result.stdout.find('Kafka') != -1
+    - name: show kafka is already running
+      debug: msg="kafka is already running"
+      when: check_result.stdout.find('Kafka') != -1
+
+    - block:
+
+      - name: execute run command
+        shell: "./kafka-server-start.sh -daemon ../config/server.properties"
+        args:
+          chdir: /usr/local/kafka_2.11-0.10.1.1/bin
+
+      - name: jps
+        shell: "jps"
+        register: result
+
+      - name: run kafka success
+        debug: msg="start kafka success"
+        when: result.stdout.find('Kafka') != -1
+
+      - name: run kafka failed
+        fail: msg="start kafka failed"
+        when: result.stdout.find('Kafka') == -1
+
+      when: check_result.stdout.find('Kafka') == -1

@@ -3,27 +3,51 @@
 - name: run redis
   hosts: redis
   gather_facts: False
+  tags:
+    - run_redis
   tasks:
-    - name: run redis-server
-      shell: "./redis-server redis.conf"
-      args:
-        chdir: /usr/local/redis-3.2.6
-
-    - name: run redis-sentinel
-      shell: "./redis-sentinel sentinel.conf"
-      args:
-        chdir: /usr/local/redis-3.2.6
-
-    - name: ps
+    - name: check if redis is already running
       shell: "ps x | grep redis"
-      register: result
+      register: check_result
 
-    - name: check redis-server run result
-      debug:
-        msg: "Start redis-server success"
-      when: result.stdout.find('redis-server') != -1
-    
-    - name: check redis-sentinel run result
-      debug:
-        msg: "Start redis-sentinel success"
-      when: result.stdout.find('redis-sentinel') != -1
+    - name: redis-server is running
+      debug: msg="redis-server is already running"
+      when: check_result.stdout.find('redis-server') != -1
+
+    - name: redis-sentinel is running
+      debug: msg="redis-sentinel is already running"
+      when: check_result.stdout.find('redis-sentinel') != -1
+
+    # start redis-server
+    - block:
+      - name: run redis-server
+        shell: "./redis-server redis.conf"
+        args:
+          chdir: /usr/local/redis-3.2.6
+
+      - name: check if redis-server is running
+        shell: "ps x | grep redis"
+        register: server_result
+
+      - name: check redis-server run result
+        debug:
+          msg: "Start redis-server success"
+        when: server_result.stdout.find('redis-server') != -1
+      when: check_result.stdout.find('redis-server') == -1
+
+    # start redis-sentinel
+    - block:
+      - name: run redis-sentinel
+        shell: "./redis-sentinel sentinel.conf"
+        args:
+          chdir: /usr/local/redis-3.2.6
+
+      - name: check redis-sentinel is running
+        shell: "ps x | grep redis"
+        register: sentinel_result
+
+      - name: check redis-sentinel run result
+        debug:
+          msg: "Start redis-sentinel success"
+        when: sentinel_result.stdout.find('redis-sentinel') != -1
+      when: check_result.stdout.find('redis-sentinel') == -1

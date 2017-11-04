@@ -1,12 +1,12 @@
 ---
 
-- name: install icegrid-master
-  hosts: icegrid-master
+- name: install icegrid-registry
+  hosts: icegrid-registry
   gather_facts: False
   vars:
     root_dir: ../..
   vars_files:
-    - "{{ root_dir }}/vars/servers.yml"
+    - "{{ root_dir }}/vars/global_vars.yml"
   tasks:
     - name: make master directory
       file:

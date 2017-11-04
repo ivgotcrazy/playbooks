@@ -3,6 +3,8 @@
 - name: start FMMonitor and FMServer
   hosts: fmserver
   gather_facts: False
+  tags:
+    - run_as
   tasks:
     - name: start FMServer
       service:

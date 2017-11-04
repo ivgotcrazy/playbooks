@@ -1,0 +1,33 @@
+---
+
+- name: download packages
+  hosts: localhost
+  gather_facts: False
+  vars:
+    root_dir: ../..
+    sss_dir: "fsp-sss-stream-{{ sss_ver }}"
+    sss_pkg: "{{ sss_dir }}.tar.gz"
+  vars_files:
+    - "{{ root_dir }}/vars/global_vars.yml"
+  tasks:
+    - name: download fsp-sss-stream
+      shell: "wget {{ jekins_sss_base }}/{{ sss_build_num }}/artifact/{{ sss_pkg }}"
+      args:      
+        chdir: /tmp
+
+    - name: uncompress fsp-sss-stream
+      unarchive:
+        src: "/tmp/{{ sss_pkg }}"
+        dest: /tmp
+
+    - name: copy cpp directory
+      shell: "cp /tmp/fsp-sss-stream-{{ sss_ver }}/cpp {{ root_dir }}/files/ -fr"
+        
+    - name: copy java directory
+      shell: "cp /tmp/fsp-sss-stream-{{ sss_ver }}/java {{ root_dir }}/files/ -fr"
+
+    - name: delete fsp-sss-stream package
+      shell: "rm -fr /tmp/{{ sss_pkg }}"
+
+    - name: delete fsp-sss-stream directory
+      shell: "rm -fr /tmp/{{ sss_dir }}"

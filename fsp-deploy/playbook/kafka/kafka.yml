@@ -2,11 +2,12 @@
 
 - name: install kafka
   hosts: kafka
+  remote_user: root
   gather_facts: True
   vars:
     root_dir: ../..
   vars_files:
-    - "{{ root_dir }}/vars/servers.yml" 
+    - "{{ root_dir }}/vars/global_vars.yml" 
   tasks:
     - name: uncompress kafka
       unarchive:

@@ -3,6 +3,8 @@
 - name: run icegrid registry
   hosts: icegrid-registry
   gather_facts: False
+  tags:
+    - run_registry
   tasks:
     - name: is already running?
       shell: "ps aux | grep ice"
@@ -13,7 +15,6 @@
       when: check_result.stdout.find('icegridregistry') != -1
 
     - block:
-
       - name: start icegrid registry
         shell: "icegridregistry --Ice.Config=config.master --daemon --nochdir"
         args:
@@ -34,7 +35,6 @@
         register: result
 
       - name: show icegridregistry run result
-        debug:
-          msg: "Start icegridregistry success"
+        debug: msg="Start icegridregistry success"
         when: result.stdout.find('icegridregistry') != -1
       when: check_result.stdout.find('icegridregistry') == -1

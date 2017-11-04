@@ -3,7 +3,10 @@
 - name: start SC
   hosts: sc
   gather_facts: False
+  tags:
+    - run_sc
   tasks:
+    # sc_start.sh can check if MA is running by itself
     - name: execute run command
       shell: "./sc_start.sh"
       args:

@@ -1,36 +1,78 @@
 ---
+#-------------------------------------------------------------------------------
+# Download packages
+#-------------------------------------------------------------------------------
+- include: playbook/download/download.yml
+  tags: download
 
-# shutdown
+#-------------------------------------------------------------------------------
+# Shutdown service
+#-------------------------------------------------------------------------------
 - include: playbook/shutdown/shutdown.yml
+  tags: shutdown
 
-# install dependance
+#-------------------------------------------------------------------------------
+# Install dependance
+#-------------------------------------------------------------------------------
 - include: playbook/common/depend.yml
+  tags: depend
 
-# install middle-ware
+#-------------------------------------------------------------------------------
+# Install middle-ware
+#-------------------------------------------------------------------------------
 - include: playbook/zk/zk.yml
+  tags: zk
 
 - include: playbook/kafka/kafka.yml
+  tags: kafka
 
 - include: playbook/redis/redis.yml
+  tags: redis
 
-# install service
+- include: playbook/ice/ice.yml
+  tags: ice
+
+#-------------------------------------------------------------------------------
+# Install FSP service
+#-------------------------------------------------------------------------------
 - include: playbook/icegrid/icegrid-registry.yml
+  tags: registry
+
 - include: playbook/icegrid/icegrid-node.yml
+  tags: node
 
 - include: playbook/gs/gs.yml
+  tags: gs
+
 - include: playbook/ss/ss.yml
+  tags: ss
 
 - include: playbook/gc/gc.yml
+  tags: gc
+
 - include: playbook/sc/sc.yml
+  tags: sc
 
 - include: playbook/ms/ms.yml
+  tags: ms
+
 - include: playbook/ma/ma.yml
+  tags: ma
 
 - include: playbook/access/access.yml
+  tags: access
+
 - include: playbook/sp/sp.yml
+  tags: sp
 
-# install AS
+#-------------------------------------------------------------------------------
+# Install AS
+#-------------------------------------------------------------------------------
 - include: playbook/as/as.yml
+  tags: as
 
-# run
+#-------------------------------------------------------------------------------
+# Run service
+#-------------------------------------------------------------------------------
 - include: playbook/run/run.yml
+  tags: run

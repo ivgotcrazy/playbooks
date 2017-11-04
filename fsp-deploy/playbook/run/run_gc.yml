@@ -3,18 +3,30 @@
 - name: start GC
   hosts: gc
   gather_facts: False
+  tags:
+    - run_gc
   tasks:
-    - name: execute run command
-      shell: "./gc_start.sh"
-      args:
-        chdir: /opt/fsp-gc-1.0-SNAPSHOT/bin
-      ignore_errors: yes
-
-    - name: jps
+    - name: check if gc running
       shell: "jps"
-      register: result
+      register: check_result
 
-    - name: show GC run result
-      debug:
-        msg: "Start GC success"
-      when: result.stdout.find('GC') != -1
+    - name: print GC is running
+      debug: msg="GC is already running"
+      when: check_result.stdout.find('GC') != -1
+
+    - block:
+      - name: execute run command
+        shell: "./gc_start.sh"
+        args:
+          chdir: /opt/fsp-gc-1.0-SNAPSHOT/bin
+        ignore_errors: yes
+
+      - name: jps
+        shell: "jps"
+        register: result
+
+      - name: show GC run result
+        debug:
+          msg: "Start GC success"
+        when: result.stdout.find('GC') != -1
+      when: check_result.stdout.find('GC') == -1

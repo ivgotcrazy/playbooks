@@ -3,7 +3,17 @@
 - name: run zk
   hosts: zk
   gather_facts: False
+  tags:
+    - run_zk
   tasks:
+    - name: check if zk is running
+      shell: "ps x | grep zoo.cfg | grep -v grep"
+      register: check_result
+      
+    - name: debug
+      debug: var=check_result
+      failed_when: True
+
     - name: execute run command
       shell: "./zkServer.sh start"
       args:

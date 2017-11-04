@@ -3,12 +3,14 @@
 - name: start stream server
   hosts: ss
   gather_facts: False
+  tags:
+    - run_ss
   tasks:
     - name: check if SS already running
       shell: "ps x | grep stream_server"
       register: check_result
 
-    - name: show if SS already running
+    - name: SS is already running
       debug: msg="stream_server is already running"
       when: check_result.stdout.find('./stream_server') != -1
   

@@ -3,7 +3,10 @@
 - name: start MA
   hosts: ma
   gather_facts: False
+  tags:
+    - run_ma
   tasks:
+    # ma_start.sh can check if MA is running by itself
     - name: execute run command
       shell: "./ma_start.sh"
       args:

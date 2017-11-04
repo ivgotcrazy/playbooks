@@ -8,7 +8,7 @@
     tomcat_dir: /usr/local/apache-tomcat-9.0.0.M17
     access_dir: "{{ tomcat_dir }}/www/fsp-access"
   vars_files:
-    - "{{ root_dir }}/vars/servers.yml"
+    - "{{ root_dir }}/vars/global_vars.yml"
   tasks:
     - name: create fsp-access directory
       file:

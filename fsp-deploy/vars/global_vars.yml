@@ -12,19 +12,28 @@ kafka_group: 192.168.7.131:9092
 zk_group: 192.168.7.131:2181
 
 ################################################################################
-# FMServer variables
+# AS variables
 ################################################################################
 
-# device
+# Device
 dev_id: TeckTest
 verify_code: 1234
 
-# FSP access
+# Access
 access_addr: 192.168.7.62
 access_port: 8080
 
-# BOSS
+# BOSS ICE
 fm_ice_locator: FMServiceIceGrid/Locator:tcp -h 192.168.5.56 -p 10001:tcp -h 192.168.5.57 -p 10001
 
-# Front
+# Front service address which is used in ServiceConfig.xml
 front_addr: 127.0.0.1
+
+################################################################################
+# Download variables
+################################################################################
+jekins_sss_base: http://192.168.5.30:8088/jenkins/view/%E5%B9%B3%E5%8F%B0%E4%BA%A7%E5%93%81%E7%BA%BF/job/build_platform_fsp_stream
+
+sss_build_num: 195
+
+sss_ver: 2.1.3.7

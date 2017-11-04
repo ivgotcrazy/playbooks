@@ -14,3 +14,4 @@
       shell: "ps x | grep tomcat | grep -v grep | awk '{print $1}' | xargs kill"
       register: result
       failed_when: result.stdout.find('tomcat') != -1
+      ignore_errors: yes

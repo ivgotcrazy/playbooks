@@ -3,6 +3,8 @@
 - name: start group server
   hosts: gs
   gather_facts: False
+  tags:
+    - run_gs
   tasks:
     - name: check if GS already running
       shell: "ps x | grep group_server"

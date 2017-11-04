@@ -3,20 +3,33 @@
 - name: start tomcat
   hosts: tomcat
   gather_facts: False
+  tags:
+    - run_tomcat
   tasks:
-    - name: shutdown tomcat
-      shell: "./shutdown.sh"
-      args:
-        chdir: /usr/local/apache-tomcat-9.0.0.M17/bin
-      ignore_errors: yes
+    - name: check if tomcat is already running
+      shell: "ps x | grep tomcat"
+      register: check_result
 
-    - name: startup tomcat
-      shell: "./startup.sh"
-      args:
-        chdir: /usr/local/apache-tomcat-9.0.0.M17/bin
-      register: result
+    - name: tomcat is already running
+      debug: msg="tomcat is already running"
+      when: check_result.stdout.find(' start') != -1
 
-    - name: show tomcat run result
-      debug:
-        msg: "Start tomcat success"
-      when: result.stdout.find('Tomcat started') != -1
+    - block:
+      - name: startup tomcat
+        shell: "./startup.sh"
+        args:
+          chdir: /usr/local/apache-tomcat-9.0.0.M17/bin
+        register: result
+
+      - name: check if tomcat is running
+        shell: "ps x | grep tomcat"
+        register: result
+
+      - name: start tomcat success
+        debug: msg="start tomcat success"
+        when: result.stdout.find(' start') != -1
+
+      - name: start tomcat failed
+        fail: msg="start tomcat failed"
+        when: result.stdout.find(' start') == -1
+      when: check_result.stdout.find(' start') == -1

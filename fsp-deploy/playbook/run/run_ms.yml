@@ -3,7 +3,10 @@
 - name: start MS
   hosts: ms
   gather_facts: False
+  tags:
+    - run_ms
   tasks:
+    # ms_start.sh can check if MA is running by itself
     - name: execute run command
       shell: "./ms_start.sh"
       args:
