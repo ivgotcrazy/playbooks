@@ -2,17 +2,20 @@
 
 - name: install base
   hosts: all
-  gather_facts: False
+  gather_facts: True
 
   vars:
     root_dir: ../..
 
   tasks:
+    - name: rebuild rpmdb
+      shell: "rpm --rebuilddb"
+
     - name: install wget
       yum:
         name: wget
         state: installed
-    
+
     - name: install libselinux-python
       yum:
         name: libselinux-python

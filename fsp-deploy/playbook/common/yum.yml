@@ -14,8 +14,5 @@
     - name: download aliyun repo
       shell: "wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo"
 
-    - name: rebuild rpmdb
-      shell: "rpm --rebuilddb"
-
     - name: make yum cache
       shell: "yum makecache"

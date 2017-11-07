@@ -7,7 +7,7 @@
     - run_ss
   tasks:
     - name: check if SS already running
-      shell: "ps x | grep stream_server"
+      shell: "ps ax | grep stream_server"
       register: check_result
 
     - name: SS is already running
@@ -21,11 +21,15 @@
           chdir: /opt/ss
     
       - name: check SS process
-        shell: "ps x | grep stream_server"
+        shell: "ps ax | grep stream_server"
         register: result
 
-      - name: show run result
+      - name: run stream server success
         debug:
           msg: "Start stream server success"
         when: result.stdout.find('./stream_server') != -1
+      
+      - name: run stream server success
+        fail: msg="Start stream server failed"
+        when: result.stdout.find('./stream_server') == -1
       when: check_result.stdout.find('./stream_server') == -1

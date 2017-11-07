@@ -1,6 +1,6 @@
 ---
 
-- name: install sc
+- name: install gc
   hosts: gc
   gather_facts: False
   vars:

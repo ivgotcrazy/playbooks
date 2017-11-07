@@ -11,10 +11,10 @@
 
     - block:
       - name: shutdown icegridregistry
-        shell: "ps x | grep icegridregistry | grep -v grep | awk '{print $1}' | xargs kill"
+        shell: "ps ax | grep icegridregistry | grep -v grep | awk '{print $1}' | xargs kill -9"
 
       - name: check shutdown result 
-        shell: "ps x | grep icegridregistry | grep -v grep"
+        shell: "ps ax | grep icegridregistry | grep -v grep"
         register: result
         failed_when: result.stdout.find('icegridregistry') != -1
       when: check_result.stdout.find('icegridregistry') != -1

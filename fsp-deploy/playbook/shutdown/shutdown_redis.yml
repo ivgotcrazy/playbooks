@@ -5,16 +5,16 @@
   gather_facts: False
   tasks:
     - name: check if redis running 
-      shell: "ps x | grep redis | grep -v grep"
+      shell: "ps ax | grep redis | grep -v grep"
       register: result
       ignore_errors: yes
 
     - block:
       - name: shutdown redis
-        shell: "ps x | grep redis | grep -v grep | awk '{print $1}' | xargs kill"
+        shell: "ps ax | grep redis | grep -v grep | awk '{print $1}' | xargs kill"
 
       - name: check redis 
-        shell: "ps x | grep redis | grep -v grep"
+        shell: "ps ax | grep redis | grep -v grep"
         register: check_result
         failed_when: check_result.stdout.find('redis') != -1
       when: result.stdout.find('redis') != -1

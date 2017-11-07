@@ -8,14 +8,16 @@
       service:
         name: FMMonitor
         state: stopped
+      ignore_errors: yes
 
     - name: shutdown FMServer
       service:
         name: FMServer
         state: stopped
+      ignore_errors: yes
 
     - name: check process
-      shell: "ps x | grep FM"
+      shell: "ps ax | grep FM"
       register: result
 
     - name: check FMServer

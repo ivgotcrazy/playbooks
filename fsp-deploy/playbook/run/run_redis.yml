@@ -7,7 +7,7 @@
     - run_redis
   tasks:
     - name: check if redis is already running
-      shell: "ps x | grep redis"
+      shell: "ps ax | grep redis"
       register: check_result
 
     - name: redis-server is running
@@ -26,7 +26,7 @@
           chdir: /usr/local/redis-3.2.6
 
       - name: check if redis-server is running
-        shell: "ps x | grep redis"
+        shell: "ps ax | grep redis"
         register: server_result
 
       - name: check redis-server run result
@@ -43,7 +43,7 @@
           chdir: /usr/local/redis-3.2.6
 
       - name: check redis-sentinel is running
-        shell: "ps x | grep redis"
+        shell: "ps ax | grep redis"
         register: sentinel_result
 
       - name: check redis-sentinel run result

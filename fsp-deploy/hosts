@@ -19,6 +19,8 @@ sp
 [ice:children]
 icegrid-registry
 icegrid-node
+gs
+ss
 
 ################################################################################
 # Middle-ware install

@@ -21,6 +21,9 @@
         args:
           chdir: /usr/local/kafka_2.11-0.10.1.1/bin
 
+      - name: wait 10s for starting kafka
+        shell: "sleep 10"
+
       - name: jps
         shell: "jps"
         register: result

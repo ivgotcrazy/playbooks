@@ -7,7 +7,7 @@
     - run_gs
   tasks:
     - name: check if GS already running
-      shell: "ps x | grep group_server"
+      shell: "ps ax | grep group_server"
       register: check_result
 
     - name: show if GS already running
@@ -21,11 +21,15 @@
           chdir: /opt/gs
     
       - name: check GS process
-        shell: "ps x | grep group_server"
+        shell: "ps ax | grep group_server"
         register: result
 
-      - name: show run result
+      - name: run group_server success
         debug:
           msg: "Start group_server success"
         when: result.stdout.find('./group_server') != -1
+      
+      - name: run group_server failed
+        fail: msg="Start group_server failed"
+        when: result.stdout.find('./group_server') == -1
       when: check_result.stdout.find('./group_server') == -1

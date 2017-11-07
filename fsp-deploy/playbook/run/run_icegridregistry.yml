@@ -24,6 +24,7 @@
         shell: "icegridadmin --Ice.Config=config.client -e \"application remove 'DBApp'\""
         args:
           chdir: /opt/ice/application
+        ignore_errors: yes
 
       - name: register ice application
         shell: "icegridadmin --Ice.Config=config.client -e \"application add 'application.xml' \""

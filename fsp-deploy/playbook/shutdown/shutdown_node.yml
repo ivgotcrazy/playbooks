@@ -11,10 +11,20 @@
 
     - block:
       - name: shutdown icegridnode
-        shell: "ps x | grep icegridnode | grep -v grep | awk '{print $1}' | xargs kill"
+        shell: "ps ax | grep icegridnode | grep -v grep | awk '{print $1}' | xargs kill -9"
+        ignore_errors: yes
 
-      - name: check shutdown result 
-        shell: "ps x | grep icegridnode | grep -v grep"
-        register: result
-        failed_when: result.stdout.find('icegridnode') != -1
+      - name: shutdown ice_server
+        shell: "ps ax | grep ice_server | grep -v grep | awk '{print $1}' | xargs kill -9"
+        ignore_errors: yes
+
+      - name: check icegrid-node shutdown result 
+        shell: "ps ax | grep icegridnode | grep -v grep"
+        register: node_result
+        failed_when: node_result.stdout.find('icegridnode') != -1
+      
+      - name: check ice_server shutdown result 
+        shell: "ps ax | grep ice_server | grep -v grep"
+        register: server_result
+        failed_when: server_result.stdout.find('ice_server') != -1
       when: check_result.stdout.find('icegridnode') != -1

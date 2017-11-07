@@ -7,7 +7,7 @@
     - run_tomcat
   tasks:
     - name: check if tomcat is already running
-      shell: "ps x | grep tomcat"
+      shell: "ps ax | grep tomcat"
       register: check_result
 
     - name: tomcat is already running
@@ -22,7 +22,7 @@
         register: result
 
       - name: check if tomcat is running
-        shell: "ps x | grep tomcat"
+        shell: "ps ax | grep tomcat"
         register: result
 
       - name: start tomcat success

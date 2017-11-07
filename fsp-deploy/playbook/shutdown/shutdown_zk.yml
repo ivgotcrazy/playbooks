@@ -11,6 +11,6 @@
       ignore_errors: yes
 
     - name: show zk shutdown result
-      shell: "ps x | grep 'zoo.cfg' | grep -v grep"
+      shell: "ps ax | grep 'zoo.cfg' | grep -v grep"
       register: result
       failed_when: result.stdout.find('zoo.cfg') != -1

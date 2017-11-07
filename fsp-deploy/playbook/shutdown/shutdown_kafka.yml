@@ -12,5 +12,23 @@
 
     - name: show kafka shutdown result
       shell: "jps"
-      register: result
-      failed_when: result.stdout.find('Kafka') != -1
+      register: check_result
+
+    - block:
+      
+      - name: kill kafka process
+        shell: "ps ax | grep -i 'kafka.Kafka' | grep java | grep -v grep | awk '{print $1}' | xargs kill -9"
+        
+      - name: check if kafka process exists
+        shell: "jps"
+        register: result
+
+      - name: kill process success
+        debug: msg="stop kafka success"
+        when: result.stdout.find('Kafka') == -1      
+     
+      - name: kill process failed
+        debug: msg="stop kafka failed"
+        when: result.stdout.find('Kafka') != -1      
+
+      when: check_result.stdout.find('Kafka') != -1

@@ -2,26 +2,28 @@
 
 - name: run zk
   hosts: zk
-  gather_facts: False
+  remote_user: root
   tags:
     - run_zk
   tasks:
     - name: check if zk is running
-      shell: "ps x | grep zoo.cfg | grep -v grep"
+      shell: "ps ax | grep zoo"
       register: check_result
-      
-    - name: debug
-      debug: var=check_result
-      failed_when: True
 
-    - name: execute run command
-      shell: "./zkServer.sh start"
-      args:
-        chdir: /usr/local/zookeeper-3.4.9/bin
-      register: result
+    - name: zookeeper is running
+      debug: msg="zookeeper is already running"
+      when: check_result.stdout.find('zoo.cfg') != -1
 
-    - name: show run result
-      debug:
-        msg: "Start zookeeper success"
-      when: (result.stdout.find('already running') != -1) or
-            (result.stdout.find('Started') != -1)
+    - block:
+      - name: execute run command
+        shell: "./zkServer.sh start"
+        args:
+          chdir: /usr/local/zookeeper-3.4.9/bin
+        register: result
+
+      - name: show run result
+        debug:
+          msg: "Start zookeeper success"
+        when: (result.stdout.find('already running') != -1) or
+              (result.stdout.find('Started') != -1)
+      when: check_result.stdout.find('zoo.cfg') == -1
